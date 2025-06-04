@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Setup & Environment / folder structure, makefile and helper functions(libft, get or printf if we need)
 Shell Basics 
 Quoting
@@ -12,3 +13,7 @@ Testing
 useful links:
 https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html
 https://rcc-uchicago.github.io/shell-intro/reference/
+=======
+test
+test 2
+>>>>>>> fb0805b5326dedc77de176d656e6405cd00a32a5
