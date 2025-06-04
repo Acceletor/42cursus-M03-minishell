@@ -1,1 +1,14 @@
-test
+Setup & Environment / folder structure, makefile and helper functions(libft, get or printf if we need)
+Shell Basics 
+Quoting
+Environment Variables
+Redirections
+Pipes
+Signals
+Built-in Commands
+Memory Management
+Testing
+
+useful links:
+https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html
+https://rcc-uchicago.github.io/shell-intro/reference/
