@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/09 17:34:09 by ksuebtha         ###   ########.fr       */
+/*   Created: 2024/12/16 11:41:08 by ksuebtha          #+#    #+#             */
+/*   Updated: 2024/12/16 11:48:17 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	main(void)
+void	ft_putstr_fd(char *s, int fd)
 {
-	return (0);
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		ft_putchar_fd(s[i], fd);
+		i++;
+	}
 }

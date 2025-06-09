@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/09 17:34:09 by ksuebtha         ###   ########.fr       */
+/*   Created: 2024/12/16 11:47:04 by ksuebtha          #+#    #+#             */
+/*   Updated: 2024/12/16 11:47:15 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	main(void)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	return (0);
+	int	i;
+
+	if (!s)
+		return ;
+	i = 0;
+	while (s[i])
+	{
+		(*f)(i, &s[i]);
+		i++;
+	}
 }

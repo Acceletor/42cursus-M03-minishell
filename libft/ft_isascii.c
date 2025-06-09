@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/09 17:34:09 by ksuebtha         ###   ########.fr       */
+/*   Created: 2024/12/03 13:31:58 by ksuebtha          #+#    #+#             */
+/*   Updated: 2024/12/03 13:41:44 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	main(void)
+int	ft_isascii(int i)
 {
+	if (i >= 0 && i <= 127)
+	{
+		return (1);
+	}
 	return (0);
 }
+
+// int main()
+// {
+// 	printf("%i", ft_isascii(-200));
+// }

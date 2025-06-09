@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/09 17:34:09 by ksuebtha         ###   ########.fr       */
+/*   Created: 2024/12/16 11:39:43 by ksuebtha          #+#    #+#             */
+/*   Updated: 2024/12/16 11:39:47 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	main(void)
+void	ft_putchar_fd(char c, int fd)
 {
-	return (0);
+	write(fd, &c, 1);
 }

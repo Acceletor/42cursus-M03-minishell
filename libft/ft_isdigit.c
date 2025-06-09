@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/09 17:34:09 by ksuebtha         ###   ########.fr       */
+/*   Created: 2024/12/03 11:59:43 by ksuebtha          #+#    #+#             */
+/*   Updated: 2024/12/03 13:53:33 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	main(void)
+int	ft_isdigit(int n)
 {
+	if ((char)n >= '0' && (char)n <= '9')
+	{
+		return (1);
+	}
 	return (0);
 }
+
+// int main()
+// {
+// 	printf("%i", ft_isdigit('9'));
+// }

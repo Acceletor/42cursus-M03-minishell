@@ -1,18 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/09 17:34:09 by ksuebtha         ###   ########.fr       */
+/*   Created: 2024/12/12 17:08:37 by ksuebtha          #+#    #+#             */
+/*   Updated: 2024/12/12 17:31:33 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	main(void)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	return (0);
+	char	*des;
+	int		len;
+	int		i;
+
+	if (!s)
+		return (0);
+	len = ft_strlen(s);
+	des = malloc((len + 1) * sizeof(char));
+	if (!des)
+		return (0);
+	i = 0;
+	while (s[i])
+	{
+		des[i] = (*f)(i, s[i]);
+		i++;
+	}
+	des[i] = 0;
+	return (des);
 }

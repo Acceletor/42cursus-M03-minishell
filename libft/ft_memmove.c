@@ -1,18 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/09 17:34:09 by ksuebtha         ###   ########.fr       */
+/*   Created: 2024/12/11 15:38:35 by ksuebtha          #+#    #+#             */
+/*   Updated: 2024/12/11 20:02:03 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	main(void)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	return (0);
+	size_t	i;
+
+	if (!dst || !src)
+		return (NULL);
+	i = 0;
+	if (dst > src)
+	{
+		while (len--)
+		{
+			((unsigned char *)dst)[len] = ((unsigned char *)src)[len];
+		}
+	}
+	else
+	{
+		while (len--)
+		{
+			((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+			i++;
+		}
+	}
+	return (dst);
 }

@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/09 17:34:09 by ksuebtha         ###   ########.fr       */
+/*   Created: 2024/12/11 16:15:56 by ksuebtha          #+#    #+#             */
+/*   Updated: 2024/12/11 16:16:33 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	main(void)
+int	ft_tolower(int c)
 {
-	return (0);
+	if ((char)c >= 'A' && (char)c <= 'Z')
+		return (c + 32);
+	return (c);
 }
+
+//int main() {
+//
+//    printf("%c\n", ft_tolower('9'));
+//    printf("%c\n", ft_tolower('W'));
+//
+//    return 0;
+//}

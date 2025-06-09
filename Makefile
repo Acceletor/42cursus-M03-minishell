@@ -3,6 +3,7 @@ NAME = minishell
 # Directory
 INC = -I ./include/
 OBJ_DIR = obj/
+LIBFT = ./libft/libft.a
 
 # Complier
 CC = cc
@@ -21,6 +22,10 @@ start:
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
+# build libft libraries
+$(LIBFT):
+	@make -C ./libft
+
 # Build executable
 all: $(NAME)
 	@echo "\033[32m[Program is ready for use]\033[0m"
@@ -29,14 +34,16 @@ all: $(NAME)
 $(OBJ_DIR)%.o: srcs/%.c
 	@$(CC) $(CFLAG) -c $< -o $@
 
-$(NAME): $(OBJ_DIR) $(OBJ)
+$(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT)
 	@$(CC) $(CFLAG) $(INC) $(OBJ) -o $(NAME)
 	
 clean:
 	@$(RM) $(OBJ_DIR)
+	@make clean -C ./libft
 
 fclean: clean
 	@$(RM) $(NAME)
+	@make fclean -C ./libft
 
 re: fclean all
 
