@@ -6,7 +6,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <limits.h>
-//so on
+
+#include "../libft/libft.h"
+#include "../libft/get_next_line.h"
 
 // define constants
 
