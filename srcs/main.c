@@ -12,7 +12,16 @@
 
 #include "../include/minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
+    t_msh msh;
+
+    if (argc > 1 && argv)
+        exit(1);
+    ft_bzero(&msh, sizeof(t_msh));
+    msh.dict_env = init_env(envp);
+    print_env_list(msh.dict_env);
+    free_env_list(&msh.dict_env);
 	return (0);
 }
+
