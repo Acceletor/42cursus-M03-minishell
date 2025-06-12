@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-#include <stdio.h>
 
 char	*ft_strndup(const char *s1, int len)
 {
@@ -98,7 +97,7 @@ void free_env_list(t_env **head)
 void print_env_list(t_env *head)
 {
     while (head) {
-        printf("%s => %s\n", head->key, head->value);
+        ft_printf("%s => %s\n", head->key, head->value);
         head = head->next;
     }
 }
