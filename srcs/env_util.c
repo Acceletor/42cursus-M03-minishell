@@ -6,29 +6,11 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 22:36:33 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/13 22:42:09 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/06/13 22:47:24 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-char	*ft_strndup(const char *s1, int len)
-{
-	char	*des;
-	int		i;
-
-	des = malloc(len + 1);
-	if (des == 0)
-		return (0);
-	i = 0;
-	while (i < len && s1[i])
-	{
-		des[i] = s1[i];
-		i++;
-	}
-	des[i] = 0;
-	return (des);
-}
 
 t_env	*create_env_node(const char *key, const char *value)
 {
