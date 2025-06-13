@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putptr_pf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/09 17:34:09 by ksuebtha         ###   ########.fr       */
+/*   Created: 2025/01/10 14:23:09 by ksuebtha          #+#    #+#             */
+/*   Updated: 2025/01/10 16:28:22 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "ft_printf.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_putptr_pf(void *ptr, size_t *counter)
 {
-    t_msh msh;
+	char			*str;
+	unsigned long	ptr_address;
 
-    if (argc > 1 && argv)
-        exit(1);
-    ft_bzero(&msh, sizeof(t_msh));
-    msh.dict_env = init_env(envp);
-    print_env_list(msh.dict_env);
-    free_env_list(&msh.dict_env);
-	return (0);
+	ptr_address = (unsigned long)ptr;
+	if (!ptr)
+	{
+		ft_putstr_pf("(nil)", counter);
+		return ;
+	}
+	ft_putstr_pf("0x", counter);
+	str = ft_convert_pf(ptr_address, HEX_LOWER_BASE);
+	ft_putstr_pf(str, counter);
+	free (str);
 }
-

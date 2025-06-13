@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putchar_pf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/09 17:34:09 by ksuebtha         ###   ########.fr       */
+/*   Created: 2025/01/10 14:23:16 by ksuebtha          #+#    #+#             */
+/*   Updated: 2025/01/10 14:49:32 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "ft_printf.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_putchar_pf(char c, size_t *count)
 {
-    t_msh msh;
-
-    if (argc > 1 && argv)
-        exit(1);
-    ft_bzero(&msh, sizeof(t_msh));
-    msh.dict_env = init_env(envp);
-    print_env_list(msh.dict_env);
-    free_env_list(&msh.dict_env);
-	return (0);
+	write(1, &c, 1);
+	(*count)++;
 }
-

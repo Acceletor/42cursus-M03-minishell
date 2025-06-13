@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/09 17:34:09 by ksuebtha         ###   ########.fr       */
+/*   Created: 2025/06/13 22:45:00 by ksuebtha          #+#    #+#             */
+/*   Updated: 2025/06/13 22:48:52 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+char	*ft_strndup(const char *s1, int len)
 {
-    t_msh msh;
+	char	*des;
+	int		i;
 
-    if (argc > 1 && argv)
-        exit(1);
-    ft_bzero(&msh, sizeof(t_msh));
-    msh.dict_env = init_env(envp);
-    print_env_list(msh.dict_env);
-    free_env_list(&msh.dict_env);
-	return (0);
+	des = malloc(len + 1);
+	if (des == 0)
+		return (0);
+	i = 0;
+	while (i < len && s1[i])
+	{
+		des[i] = s1[i];
+		i++;
+	}
+	des[i] = 0;
+	return (des);
 }
-

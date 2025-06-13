@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putuint_pf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/09 17:34:09 by ksuebtha         ###   ########.fr       */
+/*   Created: 2025/01/10 14:17:57 by ksuebtha          #+#    #+#             */
+/*   Updated: 2025/01/10 14:19:06 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "ft_printf.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_putuint_pf(unsigned int num, size_t *counter, char *base)
 {
-    t_msh msh;
+	char	*str;
 
-    if (argc > 1 && argv)
-        exit(1);
-    ft_bzero(&msh, sizeof(t_msh));
-    msh.dict_env = init_env(envp);
-    print_env_list(msh.dict_env);
-    free_env_list(&msh.dict_env);
-	return (0);
+	str = ft_convert_pf(num, base);
+	ft_putstr_pf(str, counter);
+	free(str);
 }
-
