@@ -10,7 +10,7 @@ CC = cc
 CFLAG = -Wall -Werror -Wextra
 RM = rm -rf
 
-SRCBASE = main env_util
+SRCBASE = main env_util #srcs/builtins srcs/exec
 SRC = $(addsuffix .c, $(addprefix srcs/, $(SRCBASE)))
 
 OBJ = $(SRC:srcs/%.c=$(OBJ_DIR)%.o)

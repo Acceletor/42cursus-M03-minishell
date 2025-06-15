@@ -14,6 +14,15 @@
 // define constants
 
 // define structs 
+
+typedef struct s_builtin
+{
+	char	*input;
+	char	**args;
+	int argc;
+	int status_exit;
+}			t_builtin;
+
 typedef struct s_env
 {
     char *key;
@@ -28,11 +37,23 @@ typedef struct s_msh
 
 
 // function prototypes
-char	*ft_strndup(const char *s1, int len);
+
+/*      builtins         */
+int ft_cd(t_builtin *cmd, t_msh *shell);
+int ft_echo(t_builtin *cmd);
+int	ft_env(t_builtin *cmd, t_env *env_list);
+int	ft_pwd(char **argv);
+
+/*      env_util         */
 t_env *create_env_node(const char *key, const char *value);
 void add_env_node(t_env **head, const char *key, const char *value);
 t_env *init_env(char **envp);
 void free_env_list(t_env **head);
 void print_env_list(t_env *head);
+
+/*      env_util2         */
+char *get_env_value(t_env *env_list, const char *key);
+void set_env_value(t_env **head, const char *key, const char *value);
+void remove_env_key(t_env **head, const char *key);
 
 #endif
