@@ -10,7 +10,7 @@ CC = cc
 CFLAG = -Wall -Werror -Wextra
 RM = rm -rf
 
-SRCBASE = main env_util
+SRCBASE = main env_util token token_util token_special
 SRC = $(addsuffix .c, $(addprefix srcs/, $(SRCBASE)))
 
 OBJ = $(SRC:srcs/%.c=$(OBJ_DIR)%.o)
@@ -35,7 +35,7 @@ $(OBJ_DIR)%.o: srcs/%.c
 	@$(CC) $(CFLAG) -c $< -o $@
 
 $(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT)
-	@$(CC) $(CFLAG) $(INC) $(OBJ) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAG) $(INC) -lreadline $(OBJ) $(LIBFT) -o $(NAME)
 	
 clean:
 	@$(RM) $(OBJ_DIR)
