@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 22:36:33 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/13 22:47:24 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/06/16 22:07:23 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 /* 
     Creates a new environment variable node with given the key and value.
-    Returns a pointer to the newly created node, or NULL if memory allocation fails
+    Returns a pointer to the newly created node, or NULL if memory allocation
+	 fails
 */
 t_env	*create_env_node(const char *key, const char *value)
 {
