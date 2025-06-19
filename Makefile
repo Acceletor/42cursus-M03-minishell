@@ -11,7 +11,7 @@ CFLAG = -Wall -Werror -Wextra
 RM = rm -rf
 
 SRCBASE = main env_util token token_util token_special parser \
-		 parser_util
+		 parser_util syntax_checker
 
 SRC = $(addsuffix .c, $(addprefix srcs/, $(SRCBASE)))
 

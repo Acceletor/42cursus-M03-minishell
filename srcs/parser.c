@@ -85,6 +85,8 @@ t_command *parser(t_token *tokens)
     t_command *cmds;
     t_command *current;
 
+    if (check_pipe_syntax(tokens))
+        return (NULL);
     cmds = NULL;
     while (tokens)
     {
@@ -98,8 +100,8 @@ t_command *parser(t_token *tokens)
                 add_redirect(current, &tokens);
             tokens = tokens->next;
         }
-        if (tokens && tokens->type == TOKEN_PIPE)
-            tokens = tokens->next;
+        if (tokens)
+            tokens = tokens->next; 
     }
     return (cmds);
 }

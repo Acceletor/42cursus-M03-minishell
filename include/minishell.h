@@ -114,4 +114,7 @@ void    	print_command_list(t_command *cmds);
 void free_redirects(t_redirect *redir);
 void free_command_list(t_command *cmds);
 
+// syntax_checker.c
+int check_pipe_syntax(t_token *tokens);
+
 #endif
