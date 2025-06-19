@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:04:56 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/16 22:08:52 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/06/19 22:46:37 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,4 @@ void	free_tokens(t_token **tokens)
 		free(temp);
 	}
 	*tokens = NULL;
-
 }

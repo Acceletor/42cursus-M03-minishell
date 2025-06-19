@@ -6,13 +6,13 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:04:52 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/16 22:10:04 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/06/19 22:23:51 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char *get_env_value(t_env *env, char *key)
+char	*get_env_value(t_env *env, char *key)
 {
 	while (env)
 	{

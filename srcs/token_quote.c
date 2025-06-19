@@ -1,13 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_quote.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/19 22:23:37 by ksuebtha          #+#    #+#             */
+/*   Updated: 2025/06/19 22:46:23 by ksuebtha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 /*
 Extracts a variable name like USER from a string like $USER.
 */
-char *extract_var_name(const char *str, int *i)
+char	*extract_var_name(const char *str, int *i)
 {
-	int start;
-	int len;
+	int	start;
+	int	len;
 
 	start = *i;
 	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
@@ -19,14 +30,14 @@ char *extract_var_name(const char *str, int *i)
 /*
 Handles $VARIABLE expansion and appends the expanded value to the result string.
 */
-char *append_var_value(char *result, const char *str, int *i, t_env *env)
+char	*append_var_val(char *result, const char *str, int *i, t_env *env)
 {
-	char *var;
-	char *val;
-	char *temp;
+	char	*var;
+	char	*val;
+	char	*temp;
 
 	(*i)++;
-	var = extract_var_name(str,i);
+	var = extract_var_name(str, i);
 	val = get_env_value(env, var);
 	temp = ft_strjoin(result, val);
 	free(var);
@@ -37,10 +48,10 @@ char *append_var_value(char *result, const char *str, int *i, t_env *env)
 /*
 Adds a single non-variable character to the result string
 */
-char *append_char(char *result, const char *str, int *i)
+char	*append_char(char *result, const char *str, int *i)
 {
-	char buf[2];
-	char *temp;
+	char	buf[2];
+	char	*temp;
 
 	buf[0] = str[*i];
 	buf[1] = '\0';
@@ -50,14 +61,14 @@ char *append_char(char *result, const char *str, int *i)
 	return (temp);
 }
 
-char *expand_dollar_variable(char *str, t_env *env)
+char	*expand_dollar_variable(char *str, t_env *env)
 {
-	char *result;
-	int i;
+	char	*result;
+	int		i;
 
 	result = ft_strdup("");
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == '$' && (ft_isalpha(str[i + 1]) || str[i + 1] == '_'))
 			result = append_var_value(result, str, &i, env);
@@ -66,7 +77,6 @@ char *expand_dollar_variable(char *str, t_env *env)
 	}
 	return (result);
 }
-
 
 int	handle_quotes(char *input, int *i, t_token **tokens, t_env *env)
 {
