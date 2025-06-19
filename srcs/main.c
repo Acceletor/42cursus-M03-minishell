@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
         //     break;
         add_history(msh.input); // save input history
         // ft_printf("\n%s\n",msh.input);
-        msh.tokens = token_stream(msh.input);
+        msh.tokens = token_stream(msh.input, msh.dict_env);
         // print_tokens(msh.tokens);
         msh.cmds = parser(msh.tokens);
         print_command_list(msh.cmds);

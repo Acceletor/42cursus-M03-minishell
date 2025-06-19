@@ -12,44 +12,18 @@
 
 #include "../include/minishell.h"
 
-int	handle_quotes(char *input, int *i, t_token **tokens)
+char *get_env_value(t_env *env, char *key)
 {
-	char	quote;
-	int		start;
-	char	*quoted;
-
-	if (input[*i] == '"' || input[*i] == '\'')
+	while (env)
 	{
-		quote = input[(*i)++];
-		start = *i;
-		while (input[*i] && input[*i] != quote)
-			(*i)++;
-		quoted = ft_strndup(&input[start], *i - start);
-		add_token(tokens, new_token(quoted, TOKEN_WORD));
-		free(quoted);
-		if (input[*i] == quote)
-			(*i)++;
-		return (1);
+		if (ft_strcmp(env->key, key) == 0)
+			return (env->value);
+		env = env->next;
 	}
-	return (0);
+	return ("");
 }
 
-void	handle_word(char *input, int *i, t_token **tokens)
-{
-	int		start;
-	char	*word;
-
-	start = *i;
-	while (input[*i] && input[*i] != ' ' && input[*i] != '|'
-		&& input[*i] != '<' && input[*i] != '>')
-		(*i)++;
-	word = ft_strndup(&input[start], *i - start);
-	add_token(tokens, new_token(word, TOKEN_WORD));
-	free(word);
-}
-
-
-t_token	*token_stream(char *input)
+t_token	*token_stream(char *input, t_env *env)
 {
 	t_token	*tokens;
 	int		i;
@@ -65,7 +39,7 @@ t_token	*token_stream(char *input)
 		}
 		if (handle_special_tokens(input, &i, &tokens))
 			continue ;
-		if (handle_quotes(input, &i, &tokens))
+		if (handle_quotes(input, &i, &tokens, env))
 			continue ;
 		handle_word(input, &i, &tokens);
 	}
