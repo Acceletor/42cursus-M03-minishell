@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 22:23:37 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/19 22:46:23 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/06/19 23:47:45 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*expand_dollar_variable(char *str, t_env *env)
 	while (str[i])
 	{
 		if (str[i] == '$' && (ft_isalpha(str[i + 1]) || str[i + 1] == '_'))
-			result = append_var_value(result, str, &i, env);
+			result = append_var_val(result, str, &i, env);
 		else
 			result = append_char(result, str, &i);
 	}
