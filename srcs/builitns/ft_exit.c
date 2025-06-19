@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 16:17:41 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/18 20:49:24 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/06/19 22:54:25 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,17 @@ static int is_numeric(const char *str)
     int i;
 
     i = 0;
-    if(!str || !*str)
+    if (!str || !*str)
         return 0;
-    if(str[i] == '+' || str[i] == '-')
-    i++;
-    while(str[i])
+    if (str[i] == '+' || str[i] == '-')
+        i++;
+    while (str[i])
     {
-        if(!ft_isdigit(str[i]));
+        if (!ft_isdigit(str[i]))
             return 0;
         i++;
     }
     return 1;
-    
 }
 
 int ft_exit(t_builtin *cmd, int last_exit_code)

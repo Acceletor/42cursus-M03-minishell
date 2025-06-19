@@ -6,16 +6,16 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 12:49:27 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/15 13:43:28 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/06/19 22:49:59 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//implements the echo builtin command, 
-//printing arguments with optional newline suppression.
-//supports multiple -n options and prints a space between each argument.
-//we can also create helperfunct to check n_option to reduce code lines
+// implements the echo builtin command,
+// printing arguments with optional newline suppression.
+// supports multiple -n options and prints a space between each argument.
+// we can also create helperfunct to check n_option to reduce code lines
 int ft_echo(t_builtin *cmd)
 {
     int i;

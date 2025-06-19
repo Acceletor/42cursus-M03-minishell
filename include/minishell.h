@@ -32,7 +32,8 @@ typedef struct s_env
 
 typedef struct s_msh
 {
-    t_env *dict_env;  
+    t_env *dict_env;
+    int last_exit_code;
 } t_msh;
 
 
@@ -43,6 +44,9 @@ int ft_cd(t_builtin *cmd, t_msh *shell);
 int ft_echo(t_builtin *cmd);
 int	ft_env(t_builtin *cmd, t_env *env_list);
 int	ft_pwd(char **argv);
+int	ft_export(t_builtin *cmd, t_env **env_list);
+int ft_exit(t_builtin *cmd, int last_exit_code);
+int ft_unset(t_builtin *cmd, t_env **env_list);
 
 /*      env_util         */
 t_env *create_env_node(const char *key, const char *value);

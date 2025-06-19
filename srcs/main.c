@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/09 17:34:09 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/06/19 22:52:02 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
     t_msh msh;
 
@@ -22,6 +22,5 @@ int	main(int argc, char **argv, char **envp)
     msh.dict_env = init_env(envp);
     print_env_list(msh.dict_env);
     free_env_list(&msh.dict_env);
-	return (0);
+    return (0);
 }
-
