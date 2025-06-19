@@ -10,7 +10,9 @@ CC = cc
 CFLAG = -Wall -Werror -Wextra
 RM = rm -rf
 
-SRCBASE = main env_util token token_util token_special
+SRCBASE = main env_util token token_util token_special parser \
+		 parser_util
+
 SRC = $(addsuffix .c, $(addprefix srcs/, $(SRCBASE)))
 
 OBJ = $(SRC:srcs/%.c=$(OBJ_DIR)%.o)

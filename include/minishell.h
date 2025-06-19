@@ -38,7 +38,6 @@ typedef enum e_token_type
 	TOKEN_UNKNOWN
 }	t_token_type;
 
-
 // define structs 
 typedef struct s_env
 {
@@ -101,5 +100,18 @@ t_token	*new_token(char *value, t_token_type type);
 void	add_token(t_token **head, t_token *new);
 void	print_tokens(t_token *tokens);
 void	free_tokens(t_token **tokens);
+
+// parser.c
+t_command 	*init_command(void);
+void		add_command(t_command **cmds, t_command *new);
+void		add_argument(t_command *cmd, char *value);
+void 		add_redirect(t_command *cmd, t_token **tokens);
+t_command 	*parser(t_token *tokens);
+
+// parser_util.c
+void 		print_redirects(t_redirect *redir);
+void    	print_command_list(t_command *cmds);
+void free_redirects(t_redirect *redir);
+void free_command_list(t_command *cmds);
 
 #endif
