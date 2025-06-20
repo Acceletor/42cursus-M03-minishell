@@ -51,5 +51,6 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 char	*ft_strndup(const char *s1, int len);
+int     ft_strcmp(char *s1, char *s2);
 
 #endif
