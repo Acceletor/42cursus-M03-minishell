@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+         #
+#    By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/11 18:11:39 by ksuebtha          #+#    #+#              #
 #    Updated: 2025/06/15 12:52:51 by eeravci          ###   ########.fr        #

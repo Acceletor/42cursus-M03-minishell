@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:20:48 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/19 22:23:07 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/06/20 23:09:16 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ typedef enum e_token_type
 }	t_token_type;
 
 // define structs 
+
+typedef struct s_builtin
+{
+	char	*input;
+	char	**args;
+	int argc;
+	int status_exit;
+}			t_builtin;
+
 typedef struct s_env
 {
 	char			*key;
@@ -73,6 +82,7 @@ typedef struct s_msh
 	char		*input; //raw input from readline()
 	t_token		*tokens;
 	t_command	*cmds;
+	int			last_exit_code;
 }	t_msh;
 
 // function prototypes
@@ -124,4 +134,29 @@ void		free_command_list(t_command *cmds);
 // syntax_checker.c
 int			check_pipe_syntax(t_token *tokens);
 
+
+/*      builtins         */
+int ft_cd(t_builtin *cmd, t_msh *shell);
+int ft_echo(t_builtin *cmd);
+int	ft_env(t_builtin *cmd, t_env *env_list);
+int ft_pwd(t_builtin *cmd);
+int	ft_export(t_builtin *cmd, t_env **env_list);
+int ft_exit(t_builtin *cmd, int last_exit_code);
+int ft_unset(t_builtin *cmd, t_env **env_list);
+
+int check_cd(t_builtin *cmd, t_msh *shell);
+int get_old_pwd(t_builtin *cmd, t_msh *shell);
+void update_pwd(t_msh *shell);
+
+/*      env_util         */
+t_env *create_env_node(const char *key, const char *value);
+void add_env_node(t_env **head, const char *key, const char *value);
+t_env *init_env(char **envp);
+void free_env_list(t_env **head);
+void print_env_list(t_env *head);
+
+/*      env_util2         */
+void set_env_value(t_env **head, const char *key, const char *value);
+void remove_env_key(t_env **head, const char *key);
+int execute_builtins(t_builtin *cmd, t_msh *shell);
 #endif

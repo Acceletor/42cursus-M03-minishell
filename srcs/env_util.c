@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 22:36:33 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/16 22:07:23 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/06/20 22:31:11 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_env	*create_env_node(const char *key, const char *value)
 	node->next = NULL;
 	return (node);
 }
-
 
 /*
 Adds a new environment variable node to the end od the linked list
