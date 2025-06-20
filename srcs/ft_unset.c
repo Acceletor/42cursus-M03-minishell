@@ -6,11 +6,11 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 20:49:42 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/19 23:05:30 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/06/20 21:20:04 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 static int is_valid_identifier(const char *key)
 {
@@ -32,7 +32,7 @@ int ft_unset(t_builtin *cmd, t_env **env_list)
 {
     int i;
 
-    i = 0;
+    i = 1;
     while (cmd->args[i])
     {
         if (!is_valid_identifier(cmd->args[i]))
@@ -44,8 +44,8 @@ int ft_unset(t_builtin *cmd, t_env **env_list)
         else
         {
             remove_env_key(env_list, cmd->args[i]);
-            i++;
         }
-        return 0;
+        i++;
     }
+    return 0;
 }

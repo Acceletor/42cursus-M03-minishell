@@ -10,7 +10,7 @@ CC = cc
 CFLAG = -Wall -Werror -Wextra
 RM = rm -rf
 
-SRCBASE = main env_util #srcs/builtins srcs/exec
+SRCBASE = main env_util env_util2 ft_cd ft_echo ft_env ft_exit ft_export ft_pwd ft_unset cmd_exe
 SRC = $(addsuffix .c, $(addprefix srcs/, $(SRCBASE)))
 
 OBJ = $(SRC:srcs/%.c=$(OBJ_DIR)%.o)
@@ -35,7 +35,7 @@ $(OBJ_DIR)%.o: srcs/%.c
 	@$(CC) $(CFLAG) -c $< -o $@
 
 $(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT)
-	@$(CC) $(CFLAG) $(INC) $(OBJ) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAG) $(INC) $(OBJ) $(LIBFT) -lreadline -o $(NAME)
 	
 clean:
 	@$(RM) $(OBJ_DIR)

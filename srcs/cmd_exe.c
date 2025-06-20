@@ -6,11 +6,11 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 12:54:33 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/19 23:18:11 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/06/20 21:29:31 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 int is_builtin(char *cmd)
 {
@@ -25,27 +25,22 @@ int is_builtin(char *cmd)
     );
 }
 
-/*if (is_builtin(cmd->args[0]) && !in_pipeline)
+int execute_builtins(t_builtin *cmd, t_msh *shell)
 {
-    // Run in parent without fork
-    execute_builtins(cmd, shell);
+    if (ft_strcmp(cmd->args[0], "echo") == 0)
+        return ft_echo(cmd);
+    else if (ft_strcmp(cmd->args[0], "cd") == 0)
+        return ft_cd(cmd, shell);
+    else if (ft_strcmp(cmd->args[0], "pwd") == 0)
+        return ft_pwd(cmd);  // ✅ make sure ft_pwd takes t_builtin *cmd
+    else if (ft_strcmp(cmd->args[0], "export") == 0)
+        return ft_export(cmd, &shell->dict_env);  // ✅ fix pointer type
+    else if (ft_strcmp(cmd->args[0], "unset") == 0)
+        return ft_unset(cmd, &shell->dict_env);  // ✅ already correct
+    else if (ft_strcmp(cmd->args[0], "env") == 0)
+        return ft_env(cmd, shell->dict_env);  // ✅ correct type
+    else if (ft_strcmp(cmd->args[0], "exit") == 0)
+        return ft_exit(cmd, shell->last_exit_code);
+    
+    return -1;
 }
-else
-{
-    // Run in child with fork
-    pid_t pid = fork();
-    if (pid == 0)
-    {
-        // Child
-        if (is_builtin(cmd->args[0]))
-            exit(execute_builtins(cmd, shell));
-        else
-            execve(...);
-    }
-    else
-    {
-        waitpid(pid, &status, 0);
-    }
-}
- */
-

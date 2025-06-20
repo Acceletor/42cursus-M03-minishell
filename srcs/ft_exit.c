@@ -6,11 +6,11 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 16:17:41 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/19 22:54:25 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/06/20 21:13:17 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 static int is_numeric(const char *str)
 {

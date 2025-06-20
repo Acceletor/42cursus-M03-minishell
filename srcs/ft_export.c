@@ -6,11 +6,11 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:58:48 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/18 21:18:22 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/06/20 21:13:23 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 static int	process_export_arg(const char *arg, t_env **env_list);
 static int	is_valid_identifier(const char *key);

@@ -10,6 +10,8 @@
 #include "../libft/libft.h"
 #include "../libft/get_next_line.h"
 #include "../libft/ft_printf.h"
+#include <readline/readline.h>
+#include <readline/history.h>   
 
 // define constants
 
@@ -43,10 +45,14 @@ typedef struct s_msh
 int ft_cd(t_builtin *cmd, t_msh *shell);
 int ft_echo(t_builtin *cmd);
 int	ft_env(t_builtin *cmd, t_env *env_list);
-int	ft_pwd(char **argv);
+int ft_pwd(t_builtin *cmd);
 int	ft_export(t_builtin *cmd, t_env **env_list);
 int ft_exit(t_builtin *cmd, int last_exit_code);
 int ft_unset(t_builtin *cmd, t_env **env_list);
+
+int check_cd(t_builtin *cmd, t_msh *shell);
+int get_old_pwd(t_builtin *cmd, t_msh *shell);
+void update_pwd(t_msh *shell);
 
 /*      env_util         */
 t_env *create_env_node(const char *key, const char *value);
@@ -59,5 +65,5 @@ void print_env_list(t_env *head);
 char *get_env_value(t_env *env_list, const char *key);
 void set_env_value(t_env **head, const char *key, const char *value);
 void remove_env_key(t_env **head, const char *key);
-
+int execute_builtins(t_builtin *cmd, t_msh *shell);
 #endif

@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/15 12:49:30 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/19 22:04:05 by eeravci          ###   ########.fr       */
+/*   Created: 2025/06/15 12:49:33 by eeravci           #+#    #+#             */
+/*   Updated: 2025/06/20 21:34:03 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
-int	ft_env(t_builtin *cmd, t_env *env_list)
+int	ft_pwd(t_builtin *cmd)
 {
-	if (cmd->args[1])
+	char *pwd;
+
+	(void)cmd; // Not used, but required by signature
+
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
 	{
-		ft_putstr_fd("env: too many arguments\n", 2);
+		ft_putstr_fd("minishell: pwd: getcwd failed\n", 2);
 		return (1);
 	}
-	while (env_list)
-	{
-		if (env_list->value)
-		{
-			ft_putstr_fd(env_list->key, 1);
-			ft_putstr_fd("=", 1);
-			ft_putstr_fd(env_list->value, 1);
-			ft_putchar_fd('\n', 1);
-		}
-		env_list = env_list->next;
-	}
+	ft_putstr_fd(pwd, 1);
+	ft_putchar_fd('\n', 1);
+	free(pwd);
 	return (0);
 }

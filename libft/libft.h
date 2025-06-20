@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:45:50 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/15 12:52:24 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/06/20 21:18:35 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 void	ft_putchar_fd(char c, int fd);
-void	ft_putstr_fd(char *s, int fd);
+void	ft_putstr_fd(const char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 char	*ft_strndup(const char *s1, int len);
-int ft_strcmp(char *s1, char *s2);
+int ft_strcmp(const char *s1, const char *s2);
 
 #endif

@@ -6,11 +6,11 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 12:48:51 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/19 22:38:20 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/06/20 21:12:57 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 // handles the cd command logic including argument validation,
 //  special cases, and directory switching

@@ -6,11 +6,11 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 12:49:27 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/19 22:49:59 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/06/20 21:13:09 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 // implements the echo builtin command,
 // printing arguments with optional newline suppression.
