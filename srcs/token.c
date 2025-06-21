@@ -12,6 +12,7 @@
 
 #include "../include/minishell.h"
 
+
 t_token	*token_stream(char *input, t_env *env)
 {
 	t_token	*tokens;
@@ -28,9 +29,7 @@ t_token	*token_stream(char *input, t_env *env)
 		}
 		if (handle_special_tokens(input, &i, &tokens))
 			continue ;
-		if (handle_quotes(input, &i, &tokens, env))
-			continue ;
-		handle_word(input, &i, &tokens);
+		handle_word(input, &i, &tokens, env);
 	}
 	return (tokens);
 }

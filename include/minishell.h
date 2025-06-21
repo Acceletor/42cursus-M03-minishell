@@ -97,13 +97,13 @@ void		print_env_list(t_env *head);
 
 // token.c
 t_token		*token_stream(char *input, t_env *env);
+void		handle_word(char *input, int *i, t_token **tokens, t_env* env);
 
 // token_special.c
 int			handle_pipe(char *input, int *i, t_token **tokens);
 int			handle_redir_out(char *input, int *i, t_token **tokens);
 int			handle_redir_in(char *input, int *i, t_token **tokens);
 int			handle_special_tokens(char *input, int *i, t_token **tokens);
-void		handle_word(char *input, int *i, t_token **tokens);
 
 // token_util.c
 t_token		*new_token(char *value, t_token_type type);
@@ -111,12 +111,14 @@ void		add_token(t_token **head, t_token *new);
 void		print_tokens(t_token *tokens);
 void		free_tokens(t_token **tokens);
 
-// token_quote.c
-char		*extract_var_name(const char *str, int *i);
-char		*append_var_val(char *result, const char *str, int *i, t_env *env);
-char		*append_char(char *result, const char *str, int *i);
-char		*expand_dollar_variable(char *str, t_env *env);
-int			handle_quotes(char *input, int *i, t_token **tokens, t_env *env);
+// token_word.c
+char *extract_single_quote(char *input, int *i);
+char	*extract_var_name(const char *str, int *i);
+char *extract_dollar_value(char *input, int *i, t_env *env);
+char *strjoin_and_free(char *s1, char *s2);
+char *extract_double_quote(char *input, int *i, t_env *env);
+char *extract_plain_text(char *input, int *i);
+void	handle_word(char *input, int *i, t_token **tokens, t_env *env);
 
 // parser.c
 t_command	*init_command(void);

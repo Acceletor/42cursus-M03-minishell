@@ -68,16 +68,3 @@ int	handle_special_tokens(char *input, int *i, t_token **tokens)
 	return (0);
 }
 
-void	handle_word(char *input, int *i, t_token **tokens)
-{
-	int		start;
-	char	*word;
-
-	start = *i;
-	while (input[*i] && input[*i] != ' ' && input[*i] != '|'
-		&& input[*i] != '<' && input[*i] != '>')
-		(*i)++;
-	word = ft_strndup(&input[start], *i - start);
-	add_token(tokens, new_token(word, TOKEN_WORD));
-	free(word);
-}
