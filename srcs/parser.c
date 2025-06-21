@@ -22,6 +22,7 @@ t_command	*init_command(void)
 		return (NULL);
 	cmd->argv = NULL;
 	cmd->redirects = NULL;
+	cmd->status_exit = 0;
 	cmd->next = NULL;
 	return (cmd);
 }

@@ -16,30 +16,26 @@
 // printing arguments with optional newline suppression.
 // supports multiple -n options and prints a space between each argument.
 // we can also create helperfunct to check n_option to reduce code lines
-int ft_echo(t_builtin *cmd)
+int ft_echo(t_command *cmd)
 {
     int i;
     int n_option;
 
     i = 1;
     n_option = 0;
-    if (cmd->argc > 1)
+    while (cmd->argv[i] && ft_strcmp(cmd->argv[i], "-n") == 0)
     {
-        while (cmd->args[i] && ft_strcmp(cmd->args[i], "-n") == 0)
-        {
-            n_option = 1;
-            i++;
-        }
-        while (cmd->args[i])
-        {
-            ft_putstr_fd(cmd->args[i], 1);
-            if (cmd->args[i + 1] && cmd->args[i][0] != '\0')
-                write(1, " ", 1);
-            i++;
-        }
+        n_option = 1;
+        i++;
     }
-    if (n_option == 0)
+    while (cmd->argv[i])
+    {
+        ft_putstr_fd(cmd->argv[i], 1);
+        if (cmd->argv[i + 1])
+            write(1, " ", 1);
+        i++;
+    }
+    if (! n_option)
         write(1, "\n", 1);
-    cmd->status_exit = 0;
-    return (cmd->status_exit);
+    return (0);
 }

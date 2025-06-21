@@ -73,6 +73,7 @@ typedef struct s_command
 {
 	char				**argv; // ["cat", "file.txt", NULL]
 	t_redirect			*redirects; //linked list of redirection 
+	int					status_exit;
 	struct s_command	*next;
 }	t_command;
 
@@ -82,6 +83,7 @@ typedef struct s_msh
 	char		*input; //raw input from readline()
 	t_token		*tokens;
 	t_command	*cmds;
+	int			exit_status;
 	int			last_exit_code;
 }	t_msh;
 
@@ -134,19 +136,22 @@ void		free_command_list(t_command *cmds);
 // syntax_checker.c
 int			check_pipe_syntax(t_token *tokens);
 
+// cmd_exe.c
+int is_builtin(char *cmd);
+int execute_builtins(t_command *cmd, t_msh *shell);
+void execute(t_msh *msh);
 
 /*      builtins         */
-int ft_cd(t_builtin *cmd, t_msh *shell);
-int ft_echo(t_builtin *cmd);
+int ft_echo(t_command *cmd);
+int ft_cd(t_command *cmd, t_msh *shell);
+int	ft_pwd(t_command *cmd);
+
+/*      builtins         */
 int	ft_env(t_builtin *cmd, t_env *env_list);
-int ft_pwd(t_builtin *cmd);
 int	ft_export(t_builtin *cmd, t_env **env_list);
 int ft_exit(t_builtin *cmd, int last_exit_code);
 int ft_unset(t_builtin *cmd, t_env **env_list);
 
-int check_cd(t_builtin *cmd, t_msh *shell);
-int get_old_pwd(t_builtin *cmd, t_msh *shell);
-void update_pwd(t_msh *shell);
 
 /*      env_util         */
 t_env *create_env_node(const char *key, const char *value);
@@ -158,5 +163,4 @@ void print_env_list(t_env *head);
 /*      env_util2         */
 void set_env_value(t_env **head, const char *key, const char *value);
 void remove_env_key(t_env **head, const char *key);
-int execute_builtins(t_builtin *cmd, t_msh *shell);
 #endif
