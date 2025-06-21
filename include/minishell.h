@@ -39,7 +39,6 @@ typedef enum e_token_type
 }	t_token_type;
 
 // define structs 
-
 typedef struct s_builtin
 {
 	char	*input;
@@ -97,7 +96,6 @@ void		free_env_list(t_env **head);
 void		print_env_list(t_env *head);
 
 // token.c
-char		*get_env_value(t_env *env, char *key);
 t_token		*token_stream(char *input, t_env *env);
 
 // token_special.c
@@ -145,10 +143,10 @@ void execute(t_msh *msh);
 int ft_echo(t_command *cmd);
 int ft_cd(t_command *cmd, t_msh *shell);
 int	ft_pwd(t_command *cmd);
+int	ft_export(t_command *cmd, t_env **env_list);
 
 /*      builtins         */
 int	ft_env(t_builtin *cmd, t_env *env_list);
-int	ft_export(t_builtin *cmd, t_env **env_list);
 int ft_exit(t_builtin *cmd, int last_exit_code);
 int ft_unset(t_builtin *cmd, t_env **env_list);
 
@@ -161,6 +159,7 @@ void free_env_list(t_env **head);
 void print_env_list(t_env *head);
 
 /*      env_util2         */
+char		*get_env_value(t_env *env, char *key);
 void set_env_value(t_env **head, const char *key, const char *value);
 void remove_env_key(t_env **head, const char *key);
 #endif

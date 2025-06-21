@@ -37,8 +37,8 @@ int execute_builtins(t_command *cmd, t_msh *shell)
         return ft_cd(cmd, shell);
     else if (ft_strcmp(cmd->argv[0], "pwd") == 0)
         return ft_pwd(cmd);
-    // else if (ft_strcmp(cmd->args[0], "export") == 0)
-    //     return ft_export(cmd, &shell->dict_env);
+    else if (ft_strcmp(cmd->argv[0], "export") == 0)
+        return ft_export(cmd, &shell->dict_env);
     // else if (ft_strcmp(cmd->args[0], "unset") == 0)
     //     return ft_unset(cmd, &shell->dict_env);
     // else if (ft_strcmp(cmd->args[0], "env") == 0)
