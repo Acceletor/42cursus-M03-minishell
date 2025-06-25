@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_word.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/25 23:35:49 by ksuebtha          #+#    #+#             */
+/*   Updated: 2025/06/25 23:37:28 by ksuebtha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 char *extract_single_quote(char *input, int *i)
@@ -19,17 +31,27 @@ char *extract_single_quote(char *input, int *i)
     return (text);
 }
 
+static char	*extract_double_quoted_text(char *input, int *i)
+{
+	int		start;
+
+	start = *i;
+	while (input[*i] && input[*i] != '"' && input[*i] != '$')
+		(*i)++;
+	return (ft_strndup(&input[start], *i - start));
+}
+
 static char	*handle_quoted_part(char *input, int *i, t_msh *msh)
 {
 	if (input[*i] == '$')
 		return (extract_dollar_value(msh->input, i, msh));
 	else
-		return (extract_plain_text(input, i));
+		return (extract_double_quoted_text(input, i));
 }
 
 char *extract_double_quote(char *input, int *i, t_msh *msh)
 {
-    char *result;
+	char *result;
     char *part;
     
     (*i)++;
@@ -56,10 +78,4 @@ char *extract_double_quote(char *input, int *i, t_msh *msh)
     return (result);
 }
 
-char *extract_plain_text(char *input, int *i)
-{
-	int	start = *i;
-	while (input[*i] && !ft_strchr(" |<>\"'$", input[*i]))
-		(*i)++;
-	return ft_strndup(&input[start], *i - start);
-}
+

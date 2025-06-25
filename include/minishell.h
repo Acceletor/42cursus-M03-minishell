@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:20:48 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/20 23:09:16 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/06/25 23:33:29 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ char *get_variable_value(char *var, t_msh *msh);
 char *strjoin_and_free(char *s1, char *s2);
 char *handle_dollar_braces(char *input, int *i);
 char *extract_dollar_value(char *input, int *i, t_msh *msh);
-char *extract_plain_text(char *input, int *i);
+
 
 // parser.c
 t_command	*init_command(void);

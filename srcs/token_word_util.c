@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_word_util.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/25 23:36:00 by ksuebtha          #+#    #+#             */
+/*   Updated: 2025/06/25 23:37:06 by ksuebtha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 /*
@@ -7,15 +19,15 @@ char	*extract_var_name(const char *str, int *i)
 {
 	int	start;
 
-    if (!ft_isalpha(str[*i]) && str[*i] != '_')
-        return (ft_strdup(""));
+	if (!ft_isalpha(str[*i]) && str[*i] != '_')
+		return (ft_strdup(""));
 	start = *i;
 	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
 		(*i)++;
 	return (ft_strndup(&str[start], *i - start));
 }
 
-char *get_variable_value(char *var, t_msh *msh)
+char	*get_variable_value(char *var, t_msh *msh)
 {
 	char	*val;
 
@@ -26,20 +38,22 @@ char *get_variable_value(char *var, t_msh *msh)
 	return (ft_strdup(val));
 }
 
-char *strjoin_and_free(char *s1, char *s2)
+char	*strjoin_and_free(char *s1, char *s2)
 {
-    char *res = ft_strjoin(s1, s2);
-    if (!res)
-    {
-        if (s1)
-            free(s1);
-        if (s2)
-            free(s2);
-        return (NULL);
-    }
-    free(s1);
-    free(s2);
-    return (res);
+	char	*res;
+
+	res = ft_strjoin(s1, s2);
+	if (!res)
+	{
+		if (s1)
+			free(s1);
+		if (s2)
+			free(s2);
+		return (NULL);
+	}
+	free(s1);
+	free(s2);
+	return (res);
 }
 
 char *handle_dollar_braces(char *input, int *i)
