@@ -112,6 +112,7 @@ void		free_tokens(t_token **tokens);
 
 // token_word.c
 char *extract_single_quote(char *input, int *i);
+char	*handle_dollar_sign(t_msh *msh, int *i);
 char *extract_double_quote(char *input, int *i, t_msh *msh);
 char *extract_plain_text(char *input, int *i);
 void	handle_word(t_msh *msh, int *i, t_token **tokens);
