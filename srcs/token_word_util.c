@@ -29,7 +29,7 @@ char *strjoin_and_free(char *s1, char *s2)
     return (res);
 }
 
-char *extract_dollar_value(char *input, int *i, t_env *env)
+char *extract_dollar_value(char *input, int *i, t_msh *msh)
 {
 	char	*var;
 	char	*val;
@@ -49,14 +49,14 @@ char *extract_dollar_value(char *input, int *i, t_env *env)
         var = ft_strndup(&input[start], *i - start);
         (*i)++;
     }
-    // else if (input[*i] == '?')
-    // {
-    //     (*i)++;
-    //     return (); 
-    // }
+    else if (input[*i] == '?')
+    {
+        (*i)++;
+        return (ft_itoa(msh->exit_status)); 
+    }
     else
         var = extract_var_name(input, i);
-	val = get_env_value(env, var);
+	val = get_env_value(msh->dict_env, var);
 	free(var);
 	if (!val)
 		return ft_strdup("");

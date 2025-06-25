@@ -12,24 +12,23 @@
 
 #include "../include/minishell.h"
 
-
-t_token	*token_stream(char *input, t_env *env)
+t_token	*token_stream(t_msh *msh)
 {
 	t_token	*tokens;
 	int		i;
 
 	i = 0;
 	tokens = NULL;
-	while (input[i])
+	while (msh->input[i])
 	{
-		if (input[i] == ' ')
+		if (msh->input[i] == ' ')
 		{
 			i++;
 			continue ;
 		}
-		if (handle_special_tokens(input, &i, &tokens))
+		if (handle_special_tokens(msh->input, &i, &tokens))
 			continue ;
-		handle_word(input, &i, &tokens, env);
+		handle_word(msh, &i, &tokens);
 	}
 	return (tokens);
 }
