@@ -22,8 +22,8 @@ int	main(int argc, char **argv, char **envp)
     ft_bzero(&msh, sizeof(t_msh));
     msh.dict_env = init_env(envp);
     // print_env_list(msh.dict_env);
-    while (true)
-    {
+    // while (true)
+    // {
         msh.input = readline("minishell> ");
         // if (!msh.input)
         //     break;
@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **envp)
         free_command_list(msh.cmds);
         
         free(msh.input);
-    }
+    // }
     free_env_list(&msh.dict_env);
 	return (0);
 }

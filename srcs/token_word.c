@@ -9,9 +9,13 @@ char *extract_single_quote(char *input, int *i)
     start = *i;
     while (input[*i] && input[*i] != '\'')
         (*i)++;
+    if (!input[*i])
+    {
+        ft_putstr_fd("minishell: syntax error: unclosed single quote\n", 2);
+        return (NULL);
+    }
     text = ft_strndup(&input[start], *i - start);
-    if (input[*i] == '\'')
-        (*i)++;
+    (*i)++;
     return (text);
 }
 
