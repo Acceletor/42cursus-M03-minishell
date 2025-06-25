@@ -12,10 +12,19 @@
 
 #include "../include/minishell.h"
 
+static int	is_valid_char(char c)
+{
+	return (
+		ft_isalnum(c) ||
+		ft_strchr(" |><'\"$", c)
+	);
+}
+
 t_token	*token_stream(t_msh *msh)
 {
 	t_token	*tokens;
 	int		i;
+	int		ret;
 
 	i = 0;
 	tokens = NULL;
@@ -26,13 +35,29 @@ t_token	*token_stream(t_msh *msh)
 			i++;
 			continue ;
 		}
-		if (handle_special_tokens(msh->input, &i, &tokens))
+		ret = handle_special_tokens(msh->input, &i, &tokens);
+		if (ret == 1)
 			continue ;
+		if (ret == -1)
+		{
+			free_tokens(&tokens);
+			return (NULL);
+		}
+		if (!is_valid_char(msh->input[i]))
+		{
+			ft_putstr_fd("minishell: syntax error near unexpected character: ", 2);
+			write(2, &msh->input[i], 1);
+			write(2, "\n", 1);
+			free_tokens(&tokens);
+			return (NULL);
+		}
 		if (!handle_word(msh, &i, &tokens))
 		{
 			free_tokens(&tokens);
 			return (NULL);
 		}
+		else
+			i++;
 	}
 	return (tokens);
 }
