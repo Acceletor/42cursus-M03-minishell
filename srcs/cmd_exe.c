@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 12:54:33 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/25 19:15:23 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/06/25 23:39:50 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,44 @@ int execute_builtins(t_command *cmd, t_msh *shell)
     return (1);
 }
 
+
+exec_external(t_command *cmd, t_msh *msh)
+{
+    pid_t pid;
+    int status;
+    char *path;
+    
+    //get the full path of the command usign path 
+    //path = find_command_path(cmd->argv[0], msh->dict_env)
+    if(!path)
+    {
+        ft_putstr_fd("minishell: command not found\n", 2);
+        return 127;
+    }
+    pid = fork();
+    if(pid < 0)
+    {
+        perror("fork");
+        free(path);
+        return 1;
+    }
+    else if(pid == 0)
+    {
+        execve(path, cmd->argv,msh->dict_env);
+        perror("execve");
+        exit(1);
+    }
+    else
+    {
+        waitpid(pid, &status, 0);
+        free(path);
+        if(WIFEXITED(status))
+            return WIFEXITED(status);
+        else
+            return 1;
+    }   
+    
+}
 void execute(t_msh *msh)
 {
     t_command *cmd;

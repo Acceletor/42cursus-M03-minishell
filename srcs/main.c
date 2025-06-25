@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/25 19:30:21 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/06/25 23:19:45 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	main(int argc, char **argv, char **envp)
         exit(1);
     ft_bzero(&msh, sizeof(t_msh));
     msh.dict_env = init_env(envp);
-
+    
+    
     setup_signals(); //signal setup
     while (true)
     {

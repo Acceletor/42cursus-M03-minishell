@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:20:48 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/24 14:38:59 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/06/25 23:11:10 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <signal.h>
 # include "readline/readline.h"
 # include "readline/history.h"
+# include <sys/wait.h>
+
 
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
