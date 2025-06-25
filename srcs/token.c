@@ -28,7 +28,11 @@ t_token	*token_stream(t_msh *msh)
 		}
 		if (handle_special_tokens(msh->input, &i, &tokens))
 			continue ;
-		handle_word(msh, &i, &tokens);
+		if (!handle_word(msh, &i, &tokens))
+		{
+			free_tokens(&tokens);
+			return (NULL);
+		}
 	}
 	return (tokens);
 }
@@ -45,14 +49,14 @@ static char	*extract_word_part(t_msh *msh, int *i)
 		return (extract_plain_text(msh->input, i));
 }
 
-void	handle_word(t_msh *msh, int *i, t_token **tokens)
+int	handle_word(t_msh *msh, int *i, t_token **tokens)
 {
 	char	*word;
 	char	*part;
 
 	word = ft_strdup("");
     if (!word)
-        return ;
+        return (0);
 	while (msh->input[*i] && !ft_strchr(" |<>", msh->input[*i]))
 	{
         part = extract_word_part(msh, i);
@@ -60,12 +64,13 @@ void	handle_word(t_msh *msh, int *i, t_token **tokens)
         {
             free(word);
             msh->exit_status = 2;
-            return ;
+            return (0);
         }
         word = strjoin_and_free(word, part);
         if (!word)
-            return ;  
+            return (0);  
 	}
 	add_token(tokens, new_token(word, TOKEN_WORD));
 	free(word);
+	return (1);
 }

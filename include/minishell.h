@@ -97,6 +97,7 @@ void		print_env_list(t_env *head);
 
 // token.c
 t_token	*token_stream(t_msh *msh);
+int	handle_word(t_msh *msh, int *i, t_token **tokens);
 
 // token_special.c
 int			handle_pipe(char *input, int *i, t_token **tokens);
@@ -113,7 +114,6 @@ void		free_tokens(t_token **tokens);
 // token_word.c
 char *extract_single_quote(char *input, int *i);
 char *extract_double_quote(char *input, int *i, t_msh *msh);
-void	handle_word(t_msh *msh, int *i, t_token **tokens);
 
 // token_word_util.c
 char	*extract_var_name(const char *str, int *i);
