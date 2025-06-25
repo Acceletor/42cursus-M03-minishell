@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:20:48 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/25 23:33:29 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/06/25 23:59:08 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void		free_tokens(t_token **tokens);
 // token_word.c
 char *extract_single_quote(char *input, int *i);
 char *extract_double_quote(char *input, int *i, t_msh *msh);
+char *extract_plain_text(char *input, int *i);
 
 // token_word_util.c
 char	*extract_var_name(const char *str, int *i);

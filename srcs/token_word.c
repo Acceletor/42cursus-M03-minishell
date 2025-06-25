@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 23:35:49 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/25 23:37:28 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/06/25 23:58:14 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,10 @@ char *extract_double_quote(char *input, int *i, t_msh *msh)
     return (result);
 }
 
-
+char *extract_plain_text(char *input, int *i)
+{
+	int	start = *i;
+	while (input[*i] && !ft_strchr(" |<>\"'$", input[*i]))
+		(*i)++;
+	return ft_strndup(&input[start], *i - start);
+}
