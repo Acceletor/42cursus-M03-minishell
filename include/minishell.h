@@ -113,12 +113,14 @@ void		free_tokens(t_token **tokens);
 
 // token_word.c
 char *extract_single_quote(char *input, int *i);
-char	*extract_var_name(const char *str, int *i);
-char *extract_dollar_value(char *input, int *i, t_env *env);
-char *strjoin_and_free(char *s1, char *s2);
 char *extract_double_quote(char *input, int *i, t_env *env);
 char *extract_plain_text(char *input, int *i);
 void	handle_word(char *input, int *i, t_token **tokens, t_env *env);
+
+// token_word_util.c
+char	*extract_var_name(const char *str, int *i);
+char *strjoin_and_free(char *s1, char *s2);
+char *extract_dollar_value(char *input, int *i, t_env *env);
 
 // parser.c
 t_command	*init_command(void);
