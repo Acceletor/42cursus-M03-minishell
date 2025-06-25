@@ -15,19 +15,6 @@ char *extract_single_quote(char *input, int *i)
     return (text);
 }
 
-char	*handle_dollar_sign(t_msh *msh, int *i)
-{
-	if (ft_isalpha(msh->input[*i + 1]) || msh->input[*i + 1] == '_' ||
-		msh->input[*i + 1] == '{' || msh->input[*i + 1] == '?')
-		return (extract_dollar_value(msh->input, i, msh));
-	else
-	{
-		char *part = ft_strndup(&msh->input[*i], 1);
-		(*i)++;
-		return (part);
-	}
-}
-
 char *extract_double_quote(char *input, int *i, t_msh *msh)
 {
     char *result;
@@ -38,7 +25,7 @@ char *extract_double_quote(char *input, int *i, t_msh *msh)
     while (input[*i] && input[*i] != '"')
     {
         if (input[*i] == '$')
-            part = handle_dollar_sign(msh, i);
+            part = extract_dollar_value(msh->input, i, msh);
         else
             part = extract_plain_text(input, i);
         result = strjoin_and_free(result, part);
@@ -72,7 +59,7 @@ void	handle_word(t_msh *msh, int *i, t_token **tokens)
         else if (msh->input[*i] == '"')
             part = extract_double_quote(msh->input, i, msh);
         else if (msh->input[*i] == '$')
-            part = handle_dollar_sign(msh, i);
+            part = extract_dollar_value(msh->input, i, msh);
         else
             part = extract_plain_text(msh->input, i);
         word = strjoin_and_free(word, part);

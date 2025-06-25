@@ -29,36 +29,49 @@ char *strjoin_and_free(char *s1, char *s2)
     return (res);
 }
 
+char *handle_dollar_braces(char *input, int *i)
+{
+    int start;
+    char *var;
+
+    start = ++(*i);
+    while (input[*i] && input[*i] != '}')
+        (*i)++;
+    if (input[*i] != '}')
+    {
+        ft_putstr_fd("minishell: syntax error: missing '}' in ${VAR}\n", 2);
+        return (ft_strdup(""));
+    }
+    var = ft_strndup(&input[start], *i - start);
+    (*i)++;
+    return (var);
+}
+
 char *extract_dollar_value(char *input, int *i, t_msh *msh)
 {
 	char	*var;
 	char	*val;
-    int     start;
 
 	(*i)++;
-    if (input[*i] == '{')
-    {
-        start = ++(*i);
-        while (input[*i] && input[*i] != '}')
-            (*i)++;
-        if (input[*i] != '}')
-        {
-            ft_putstr_fd("minishell: syntax error: missing '}' in ${VAR}\n", 2);
-            return (ft_strdup(""));
-        }
-        var = ft_strndup(&input[start], *i - start);
-        (*i)++;
-    }
-    else if (input[*i] == '?')
+    if (input[*i] == '{')  //${var}
+        var = handle_dollar_braces(input, i);
+    else if (input[*i] == '?') // $?
     {
         (*i)++;
         return (ft_itoa(msh->exit_status)); 
     }
-    else
+    else if (ft_isdigit(input[*i])) // $2 $1
+    {
+        (*i)++;
+        return (ft_strdup(""));
+    }  
+    else if (ft_isalpha(input[*i]) || input[*i] == '_')
         var = extract_var_name(input, i);
-	val = get_env_value(msh->dict_env, var);
-	free(var);
-	if (!val)
-		return ft_strdup("");
-	return ft_strdup(val);
+    else
+	    return (ft_strdup("$"));
+    val = get_env_value(msh->dict_env, var);
+    free(var);
+    if (!val)
+        return ft_strdup("");
+    return (ft_strdup(val));
 }
