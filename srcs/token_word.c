@@ -24,7 +24,8 @@ char	*extract_var_name(const char *str, int *i)
 
     if (!ft_isalpha(str[*i]) && str[*i] != '_')
         return (ft_strdup(""));
-	start = *i;
+	
+    start = *i;
 	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
 		(*i)++;
 	return (ft_strndup(&str[start], *i - start));
@@ -56,7 +57,11 @@ char *extract_dollar_value(char *input, int *i, t_env *env)
     //     return (); 
     // }
     else
+    {
         var = extract_var_name(input, i);
+    }
+        
+
 	val = get_env_value(env, var);
 	free(var);
 	if (!val)

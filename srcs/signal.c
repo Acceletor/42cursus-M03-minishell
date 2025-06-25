@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/15 12:49:33 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/24 23:06:51 by eeravci          ###   ########.fr       */
+/*   Created: 2025/06/22 22:49:18 by eeravci           #+#    #+#             */
+/*   Updated: 2025/06/25 21:37:05 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_pwd(t_command *cmd)
-{
-	char *pwd;
+volatile sig_atomic_t g_signal = 0;
 
-	(void)cmd;
-	pwd = getcwd(NULL, 0);
-	if (!pwd)
-	{
-		ft_putstr_fd("minishell: pwd: getcwd failed\n", 2);
-		return (1);
-	}
-	ft_putstr_fd(pwd, 1);
-	ft_putchar_fd('\n', 1);
-	free(pwd);
-	return (0);
+void handle_sigint(int sig)
+{
+    (void)sig;
+    g_signal = SIGINT;
+    write(1, "\n", 1);
+    rl_replace_line("", 0);
+    rl_on_new_line();
+    rl_redisplay();
+}
+void handle_sigquit(int sig)
+{
+        (void)sig;
+        g_signal = SIGQUIT;
+}
+
+void setup_signals(void)
+{
+
+    signal(SIGINT, handle_sigint);
+    signal(SIGQUIT, SIG_IGN);
 }

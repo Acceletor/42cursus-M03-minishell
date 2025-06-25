@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:20:48 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/20 23:09:16 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/06/24 14:38:59 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <limits.h>
+# include <signal.h>
 # include "readline/readline.h"
 # include "readline/history.h"
 
@@ -136,7 +137,7 @@ void		free_command_list(t_command *cmds);
 // syntax_checker.c
 int			check_pipe_syntax(t_token *tokens);
 
-// cmd_exe.c
+/*     cmd_exe.c         */
 int is_builtin(char *cmd);
 int execute_builtins(t_command *cmd, t_msh *shell);
 void execute(t_msh *msh);
@@ -164,4 +165,9 @@ void print_env_list(t_env *head);
 char		*get_env_value(t_env *env, char *key);
 void set_env_value(t_env **head, const char *key, const char *value);
 void remove_env_key(t_env **head, const char *key);
+
+/*      signals           */
+void sigint_handler(int sig);
+void setup_signals(void);
+
 #endif

@@ -6,12 +6,11 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 12:48:51 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/20 21:12:57 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/06/25 21:39:53 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
 
 // updates the PWD and OLDPWD environment variables after a successful directory change
 static void update_pwd(t_msh *shell)
