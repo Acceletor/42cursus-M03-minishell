@@ -9,7 +9,7 @@ char *extract_single_quote(char *input, int *i)
     start = *i;
     while (input[*i] && input[*i] != '\'')
         (*i)++;
-    if (!input[*i])
+    if (input[*i] != '\'')
     {
         ft_putstr_fd("minishell: syntax error: unclosed single quote\n", 2);
         return (NULL);
@@ -17,6 +17,14 @@ char *extract_single_quote(char *input, int *i)
     text = ft_strndup(&input[start], *i - start);
     (*i)++;
     return (text);
+}
+
+static char	*handle_quoted_part(char *input, int *i, t_msh *msh)
+{
+	if (input[*i] == '$')
+		return (extract_dollar_value(msh->input, i, msh));
+	else
+		return (extract_plain_text(input, i));
 }
 
 char *extract_double_quote(char *input, int *i, t_msh *msh)
@@ -28,16 +36,23 @@ char *extract_double_quote(char *input, int *i, t_msh *msh)
     result = ft_strdup("");
     while (input[*i] && input[*i] != '"')
     {
-        if (input[*i] == '$')
-            part = extract_dollar_value(msh->input, i, msh);
-        else
-            part = extract_plain_text(input, i);
+        part = handle_quoted_part(input, i, msh);
+        if (!part)
+        {
+            free(result);
+            return (NULL);
+        }
         result = strjoin_and_free(result, part);
         if (!result)
             return (NULL);
     }
-    if (input[*i] == '"')
-        (*i)++;
+    if (input[*i] != '"')
+    {
+        ft_putstr_fd("minishell: syntax error: unclosed double quote\n", 2);
+        free(result);
+        return (NULL);
+    }
+    (*i)++;
     return (result);
 }
 
@@ -47,29 +62,4 @@ char *extract_plain_text(char *input, int *i)
 	while (input[*i] && !ft_strchr(" |<>\"'$", input[*i]))
 		(*i)++;
 	return ft_strndup(&input[start], *i - start);
-}
-
-void	handle_word(t_msh *msh, int *i, t_token **tokens)
-{
-	char	*word;
-	char	*part;
-
-	word = ft_strdup("");
-	while (msh->input[*i] && msh->input[*i] != ' ' && msh->input[*i] != '|'
-		&& msh->input[*i] != '<' && msh->input[*i] != '>')
-	{
-		if (msh->input[*i] == '\'')
-			part = extract_single_quote(msh->input, i);
-        else if (msh->input[*i] == '"')
-            part = extract_double_quote(msh->input, i, msh);
-        else if (msh->input[*i] == '$')
-            part = extract_dollar_value(msh->input, i, msh);
-        else
-            part = extract_plain_text(msh->input, i);
-        word = strjoin_and_free(word, part);
-        if (!word)
-            return ;
-	}
-	add_token(tokens, new_token(word, TOKEN_WORD));
-	free(word);
 }

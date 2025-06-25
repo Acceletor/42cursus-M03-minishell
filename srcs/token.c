@@ -32,3 +32,40 @@ t_token	*token_stream(t_msh *msh)
 	}
 	return (tokens);
 }
+
+static char	*extract_word_part(t_msh *msh, int *i)
+{
+	if (msh->input[*i] == '\'')
+		return (extract_single_quote(msh->input, i));
+	else if (msh->input[*i] == '"')
+		return (extract_double_quote(msh->input, i, msh));
+	else if (msh->input[*i] == '$')
+		return (extract_dollar_value(msh->input, i, msh));
+	else
+		return (extract_plain_text(msh->input, i));
+}
+
+void	handle_word(t_msh *msh, int *i, t_token **tokens)
+{
+	char	*word;
+	char	*part;
+
+	word = ft_strdup("");
+    if (!word)
+        return ;
+	while (msh->input[*i] && !ft_strchr(" |<>", msh->input[*i]))
+	{
+        part = extract_word_part(msh, i);
+        if (!part)
+        {
+            free(word);
+            msh->exit_status = 2;
+            return ;
+        }
+        word = strjoin_and_free(word, part);
+        if (!word)
+            return ;  
+	}
+	add_token(tokens, new_token(word, TOKEN_WORD));
+	free(word);
+}

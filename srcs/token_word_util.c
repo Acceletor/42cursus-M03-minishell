@@ -15,13 +15,26 @@ char	*extract_var_name(const char *str, int *i)
 	return (ft_strndup(&str[start], *i - start));
 }
 
+char *get_variable_value(char *var, t_msh *msh)
+{
+	char	*val;
+
+	val = get_env_value(msh->dict_env, var);
+	free(var);
+	if (!val)
+		return (ft_strdup(""));
+	return (ft_strdup(val));
+}
+
 char *strjoin_and_free(char *s1, char *s2)
 {
     char *res = ft_strjoin(s1, s2);
     if (!res)
     {
-        free(s1);
-        free(s2);
+        if (s1)
+            free(s1);
+        if (s2)
+            free(s2);
         return (NULL);
     }
     free(s1);
@@ -50,7 +63,6 @@ char *handle_dollar_braces(char *input, int *i)
 char *extract_dollar_value(char *input, int *i, t_msh *msh)
 {
 	char	*var;
-	char	*val;
 
 	(*i)++;
     if (input[*i] == '{')  //${var}
@@ -60,18 +72,14 @@ char *extract_dollar_value(char *input, int *i, t_msh *msh)
         (*i)++;
         return (ft_itoa(msh->exit_status)); 
     }
-    else if (ft_isdigit(input[*i])) // $2 $1
+    else if (input[*i] && ft_isdigit(input[*i])) // $2 $1
     {
         (*i)++;
         return (ft_strdup(""));
     }  
-    else if (ft_isalpha(input[*i]) || input[*i] == '_')
+    else if (input[*i] && (ft_isalpha(input[*i]) || input[*i] == '_'))
         var = extract_var_name(input, i);
     else
 	    return (ft_strdup("$"));
-    val = get_env_value(msh->dict_env, var);
-    free(var);
-    if (!val)
-        return ft_strdup("");
-    return (ft_strdup(val));
+    return (get_variable_value(var, msh));
 }
