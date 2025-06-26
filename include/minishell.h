@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:20:48 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/19 22:23:07 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/06/25 23:59:08 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ typedef enum e_token_type
 }	t_token_type;
 
 // define structs 
+typedef struct s_builtin
+{
+	char	*input;
+	char	**args;
+	int argc;
+	int status_exit;
+}			t_builtin;
+
 typedef struct s_env
 {
 	char			*key;
@@ -64,6 +72,7 @@ typedef struct s_command
 {
 	char				**argv; // ["cat", "file.txt", NULL]
 	t_redirect			*redirects; //linked list of redirection 
+	int					status_exit;
 	struct s_command	*next;
 }	t_command;
 
@@ -73,6 +82,8 @@ typedef struct s_msh
 	char		*input; //raw input from readline()
 	t_token		*tokens;
 	t_command	*cmds;
+	int			exit_status;
+	int			last_exit_code;
 }	t_msh;
 
 // function prototypes
@@ -85,15 +96,14 @@ void		free_env_list(t_env **head);
 void		print_env_list(t_env *head);
 
 // token.c
-char		*get_env_value(t_env *env, char *key);
-t_token		*token_stream(char *input, t_env *env);
+t_token	*token_stream(t_msh *msh);
+int	handle_word(t_msh *msh, int *i, t_token **tokens);
 
 // token_special.c
 int			handle_pipe(char *input, int *i, t_token **tokens);
 int			handle_redir_out(char *input, int *i, t_token **tokens);
 int			handle_redir_in(char *input, int *i, t_token **tokens);
 int			handle_special_tokens(char *input, int *i, t_token **tokens);
-void		handle_word(char *input, int *i, t_token **tokens);
 
 // token_util.c
 t_token		*new_token(char *value, t_token_type type);
@@ -101,12 +111,18 @@ void		add_token(t_token **head, t_token *new);
 void		print_tokens(t_token *tokens);
 void		free_tokens(t_token **tokens);
 
-// token_quote.c
-char		*extract_var_name(const char *str, int *i);
-char		*append_var_val(char *result, const char *str, int *i, t_env *env);
-char		*append_char(char *result, const char *str, int *i);
-char		*expand_dollar_variable(char *str, t_env *env);
-int			handle_quotes(char *input, int *i, t_token **tokens, t_env *env);
+// token_word.c
+char *extract_single_quote(char *input, int *i);
+char *extract_double_quote(char *input, int *i, t_msh *msh);
+char *extract_plain_text(char *input, int *i);
+
+// token_word_util.c
+char	*extract_var_name(const char *str, int *i);
+char *get_variable_value(char *var, t_msh *msh);
+char *strjoin_and_free(char *s1, char *s2);
+char *handle_dollar_braces(char *input, int *i);
+char *extract_dollar_value(char *input, int *i, t_msh *msh);
+
 
 // parser.c
 t_command	*init_command(void);
@@ -124,4 +140,32 @@ void		free_command_list(t_command *cmds);
 // syntax_checker.c
 int			check_pipe_syntax(t_token *tokens);
 
+// cmd_exe.c
+int is_builtin(char *cmd);
+int execute_builtins(t_command *cmd, t_msh *shell);
+void execute(t_msh *msh);
+
+/*      builtins         */
+int ft_echo(t_command *cmd);
+int ft_cd(t_command *cmd, t_msh *shell);
+int	ft_pwd(t_command *cmd);
+int	ft_export(t_command *cmd, t_env **env_list);
+
+/*      builtins         */
+int	ft_env(t_builtin *cmd, t_env *env_list);
+int ft_exit(t_builtin *cmd, int last_exit_code);
+int ft_unset(t_builtin *cmd, t_env **env_list);
+
+
+/*      env_util         */
+t_env *create_env_node(const char *key, const char *value);
+void add_env_node(t_env **head, const char *key, const char *value);
+t_env *init_env(char **envp);
+void free_env_list(t_env **head);
+void print_env_list(t_env *head);
+
+/*      env_util2         */
+char		*get_env_value(t_env *env, char *key);
+void set_env_value(t_env **head, const char *key, const char *value);
+void remove_env_key(t_env **head, const char *key);
 #endif

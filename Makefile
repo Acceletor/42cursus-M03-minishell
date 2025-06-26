@@ -11,8 +11,10 @@ CFLAG = -Wall -Werror -Wextra
 RM = rm -rf
 
 SRCBASE = main env_util token token_util token_special \
-		 token_quote parser parser_util syntax_checker \
-		 
+		 token_word token_word_util parser parser_util syntax_checker \
+		 env_util2 ft_cd ft_echo ft_env ft_exit ft_export \
+		 ft_pwd ft_unset cmd_exe 
+
 
 SRC = $(addsuffix .c, $(addprefix srcs/, $(SRCBASE)))
 
@@ -39,7 +41,7 @@ $(OBJ_DIR)%.o: srcs/%.c
 
 $(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT)
 	@$(CC) $(CFLAG) $(INC) -lreadline $(OBJ) $(LIBFT) -o $(NAME)
-	
+
 clean:
 	@$(RM) $(OBJ_DIR)
 	@make clean -C ./libft

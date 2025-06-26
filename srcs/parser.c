@@ -22,6 +22,7 @@ t_command	*init_command(void)
 		return (NULL);
 	cmd->argv = NULL;
 	cmd->redirects = NULL;
+	cmd->status_exit = 0;
 	cmd->next = NULL;
 	return (cmd);
 }
@@ -97,6 +98,8 @@ t_command	*parser(t_token *tokens)
 	t_command	*cmds;
 	t_command	*current;
 
+	if (!tokens)
+		return (NULL);
 	if (check_pipe_syntax(tokens))
 		return (NULL);
 	cmds = NULL;
