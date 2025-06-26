@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:20:48 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/25 23:11:10 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/06/26 22:41:55 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_command
 	char				**argv; // ["cat", "file.txt", NULL]
 	t_redirect			*redirects; //linked list of redirection 
 	int					status_exit;
+	int	argc;
 	struct s_command	*next;
 }	t_command;
 
@@ -149,11 +150,9 @@ int ft_echo(t_command *cmd);
 int ft_cd(t_command *cmd, t_msh *shell);
 int	ft_pwd(t_command *cmd);
 int	ft_export(t_command *cmd, t_env **env_list);
-
-/*      builtins         */
-int	ft_env(t_builtin *cmd, t_env *env_list);
-int ft_exit(t_builtin *cmd, int last_exit_code);
-int ft_unset(t_builtin *cmd, t_env **env_list);
+int	ft_env(t_command *cmd, t_env *env_list);
+int ft_exit(t_command *cmd);
+int ft_unset(t_command *cmd, t_env **env_list);
 
 
 /*      env_util         */
@@ -168,8 +167,15 @@ char		*get_env_value(t_env *env, char *key);
 void set_env_value(t_env **head, const char *key, const char *value);
 void remove_env_key(t_env **head, const char *key);
 
+/*     export_utils      */
+int	is_valid_identifier(const char *key);
+void	print_export_error(const char *arg);
+int env_list_size(t_env *env);
+void	sort_env_array(t_env **array, int size);
+
 /*      signals           */
-void sigint_handler(int sig);
+void handle_sigquit(int sig);
+void handle_sigint(int sig);
 void setup_signals(void);
 
 #endif

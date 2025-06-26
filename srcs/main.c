@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/25 23:19:45 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/06/26 22:44:36 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	main(int argc, char **argv, char **envp)
         msh.tokens = token_stream(msh.input, msh.dict_env);
         msh.cmds = parser(msh.tokens);
         free_tokens(&msh.tokens);
+        print_command_list(msh.cmds);
         execute(&msh);
         free_command_list(msh.cmds);
         free(msh.input);
