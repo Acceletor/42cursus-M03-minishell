@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/15 12:49:30 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/26 20:16:51 by eeravci          ###   ########.fr       */
+/*   Created: 2025/06/22 22:49:18 by eeravci           #+#    #+#             */
+/*   Updated: 2025/06/26 11:54:29 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_env(t_command *cmd, t_env *env_list)
+volatile sig_atomic_t g_signal = 0;
+
+void handle_sigint(int sig)
 {
-	if (cmd->argv[1])
-	{
-		ft_putstr_fd("env: too many arguments\n", 2);
-		return (1);
-	}
-	while (env_list)
-	{
-		if (env_list->value)
-		{
-			ft_putstr_fd(env_list->key, 1);
-			ft_putstr_fd("=", 1);
-			ft_putstr_fd(env_list->value, 1);
-			ft_putchar_fd('\n', 1);
-		}
-		env_list = env_list->next;
-	}
-	return (0);
+    (void)sig;
+    g_signal = SIGINT;
+    write(1, "\n", 1);
+    rl_replace_line("", 0);
+    rl_on_new_line();
+    rl_redisplay();
+}
+void handle_sigquit(int sig)
+{
+        (void)sig;
+        g_signal = SIGQUIT;
+}
+
+void setup_signals(void)
+{
+
+    signal(SIGINT, handle_sigint);
+    signal(SIGQUIT, SIG_IGN);
 }

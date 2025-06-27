@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 22:23:30 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/19 22:44:13 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/06/26 22:43:03 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_command	*init_command(void)
 	cmd->redirects = NULL;
 	cmd->status_exit = 0;
 	cmd->next = NULL;
+	cmd->argc = 0;
 	return (cmd);
 }
 
@@ -66,6 +67,7 @@ void	add_argument(t_command *cmd, char *value)
 	new_argv[count + 1] = NULL;
 	free(cmd->argv);
 	cmd->argv = new_argv;
+	cmd->argc = count;
 }
 
 // handles <, >, <<, >>

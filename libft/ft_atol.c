@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/15 12:49:30 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/26 20:16:51 by eeravci          ###   ########.fr       */
+/*   Created: 2025/06/26 19:21:31 by eeravci           #+#    #+#             */
+/*   Updated: 2025/06/26 20:13:44 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-int	ft_env(t_command *cmd, t_env *env_list)
+long	ft_atol(const char *str)
 {
-	if (cmd->argv[1])
+	long	res;
+	long	sign;
+
+	res = 0;
+	sign = 1;
+	while ((*str >= 9 && *str <= 13) || *str == ' ')
+		str++;
+	if (*str == '-' || *str == '+')
 	{
-		ft_putstr_fd("env: too many arguments\n", 2);
-		return (1);
+		if (*str == '-')
+			sign = -1;
+		str++;
 	}
-	while (env_list)
+	while (*str >= '0' && *str <= '9')
 	{
-		if (env_list->value)
-		{
-			ft_putstr_fd(env_list->key, 1);
-			ft_putstr_fd("=", 1);
-			ft_putstr_fd(env_list->value, 1);
-			ft_putchar_fd('\n', 1);
-		}
-		env_list = env_list->next;
+		res = res * 10 + (*str - '0');
+		str++;
 	}
-	return (0);
+	return (res * sign);
 }

@@ -6,7 +6,7 @@
 #    By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/11 18:11:39 by ksuebtha          #+#    #+#              #
-#    Updated: 2025/06/15 12:52:51 by eeravci          ###   ########.fr        #
+#    Updated: 2025/06/26 20:13:58 by eeravci          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRC = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 		get_next_line.c get_next_line_utils.c \
 		ft_printf.c ft_putchar_pf.c ft_putstr_pf.c ft_putptr_pf.c \
 		ft_putnbr_pf.c ft_convert_pf.c ft_putuint_pf.c \
-		ft_strndup.c ft_strcmp.c
+		ft_strndup.c ft_strcmp.c ft_atol.c
 		
 OBJ = ${SRC:.c=.o}
 

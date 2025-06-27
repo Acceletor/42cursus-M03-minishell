@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/15 12:49:30 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/26 20:16:51 by eeravci          ###   ########.fr       */
+/*   Created: 2025/06/26 13:28:42 by eeravci           #+#    #+#             */
+/*   Updated: 2025/06/26 20:19:18 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_env(t_command *cmd, t_env *env_list)
+char *strjoin_three_and_free(char *s1, char *s2, char *s3)
 {
-	if (cmd->argv[1])
-	{
-		ft_putstr_fd("env: too many arguments\n", 2);
-		return (1);
-	}
-	while (env_list)
-	{
-		if (env_list->value)
-		{
-			ft_putstr_fd(env_list->key, 1);
-			ft_putstr_fd("=", 1);
-			ft_putstr_fd(env_list->value, 1);
-			ft_putchar_fd('\n', 1);
-		}
-		env_list = env_list->next;
-	}
-	return (0);
+    char *res;
+    char *temp;
+
+    temp = ft_strjoin(s1, s2);
+    if(!temp)
+        return NULL;
+    res = ft_strjoin(temp, s3);
+    if(!res)
+        return NULL;
+    free(res);
+    return (res);
+}
+
+void    free_array(char **arr)
+{
+    int i;
+    
+    if(!arr)
+        return ;
+    i = 0;
+    while(arr[i])
+        free(arr[i++]);
+    free(arr);
 }

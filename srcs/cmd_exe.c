@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_exe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 12:54:33 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/20 23:41:25 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/06/26 22:49:07 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ int execute_builtins(t_command *cmd, t_msh *shell)
         return ft_pwd(cmd);
     else if (ft_strcmp(cmd->argv[0], "export") == 0)
         return ft_export(cmd, &shell->dict_env);
-    // else if (ft_strcmp(cmd->args[0], "unset") == 0)
-    //     return ft_unset(cmd, &shell->dict_env);
-    // else if (ft_strcmp(cmd->args[0], "env") == 0)
-    //     return ft_env(cmd, shell->dict_env);
-    // else if (ft_strcmp(cmd->args[0], "exit") == 0)
-    //     return ft_exit(cmd, shell->last_exit_code);
+    else if (ft_strcmp(cmd->argv[0], "unset") == 0)
+        return ft_unset(cmd, &shell->dict_env);
+    else if (ft_strcmp(cmd->argv[0], "env") == 0)
+        return ft_env(cmd, shell->dict_env);
+  //  else if (ft_strcmp(cmd->argv[0], "exit") == 0)
+    //    return (ft_exit(cmd));
     return (1);
 }
 

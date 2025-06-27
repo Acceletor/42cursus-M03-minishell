@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:20:48 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/25 23:59:08 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/06/26 22:41:55 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <limits.h>
+# include <signal.h>
 # include "readline/readline.h"
 # include "readline/history.h"
+# include <sys/wait.h>
+
 
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
@@ -73,6 +76,7 @@ typedef struct s_command
 	char				**argv; // ["cat", "file.txt", NULL]
 	t_redirect			*redirects; //linked list of redirection 
 	int					status_exit;
+	int	argc;
 	struct s_command	*next;
 }	t_command;
 
@@ -140,7 +144,7 @@ void		free_command_list(t_command *cmds);
 // syntax_checker.c
 int			check_pipe_syntax(t_token *tokens);
 
-// cmd_exe.c
+/*     cmd_exe.c         */
 int is_builtin(char *cmd);
 int execute_builtins(t_command *cmd, t_msh *shell);
 void execute(t_msh *msh);
@@ -150,11 +154,9 @@ int ft_echo(t_command *cmd);
 int ft_cd(t_command *cmd, t_msh *shell);
 int	ft_pwd(t_command *cmd);
 int	ft_export(t_command *cmd, t_env **env_list);
-
-/*      builtins         */
-int	ft_env(t_builtin *cmd, t_env *env_list);
-int ft_exit(t_builtin *cmd, int last_exit_code);
-int ft_unset(t_builtin *cmd, t_env **env_list);
+int	ft_env(t_command *cmd, t_env *env_list);
+int ft_exit(t_command *cmd);
+int ft_unset(t_command *cmd, t_env **env_list);
 
 
 /*      env_util         */
@@ -168,4 +170,16 @@ void print_env_list(t_env *head);
 char		*get_env_value(t_env *env, char *key);
 void set_env_value(t_env **head, const char *key, const char *value);
 void remove_env_key(t_env **head, const char *key);
+
+/*     export_utils      */
+int	is_valid_identifier(const char *key);
+void	print_export_error(const char *arg);
+int env_list_size(t_env *env);
+void	sort_env_array(t_env **array, int size);
+
+/*      signals           */
+void handle_sigquit(int sig);
+void handle_sigint(int sig);
+void setup_signals(void);
+
 #endif
