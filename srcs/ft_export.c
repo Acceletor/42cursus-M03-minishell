@@ -3,14 +3,76 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:58:48 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/26 19:14:22 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/06/28 01:16:33 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+
+static int	is_valid_identifier(const char *key)
+{
+	int	i;
+
+	if (!key || (!ft_isalpha(key[0]) && key[0] != '_'))
+		return (0);
+	i = 1;
+	while (key[i])
+	{
+		if (!ft_isalnum(key[i]) && key[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+static void	print_export_error(const char *arg)
+{
+	ft_putstr_fd("minishell: export: '", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
+}
+
+static int env_list_size(t_env *env)
+{
+	int count;
+
+	count = 0;
+	while (env)
+	{
+		count++;
+		env = env->next;
+	}
+	return (count);
+}
+
+static void	sort_env_array(t_env **array, int size)
+{
+	int i;
+	int j;
+	t_env *tmp;
+
+	i = 0;
+	while (i < size -1)
+	{
+		j = 0;
+		while(j < size - i - 1)
+		{
+			if (ft_strcmp(array[j]->key, array[j + 1]->key) > 0)
+			{
+				tmp = array[j];
+				array[j] = array[j + 1];
+				array[j + 1] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 
 static void print_export_list(t_env *env_list)
 {
@@ -53,6 +115,7 @@ static int	process_export_arg(const char *arg, t_env **env_list)
 	char	*key;
 	char	*value;
 	char	*equal_pos;
+	bool	exists;
 
 	equal_pos = ft_strchr(arg, '=');
 	if (equal_pos)
@@ -72,7 +135,9 @@ static int	process_export_arg(const char *arg, t_env **env_list)
 		free(value);
 		return (1);
 	}
-	set_env_value(env_list, key, value);
+	exists = env_exists(*env_list, key);
+	if (!exists || (value != NULL && exists))
+		set_env_value(env_list, key, value);
 	free(key);
 	free(value);
 	return (0);

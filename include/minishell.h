@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:20:48 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/26 22:41:55 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/06/28 01:06:42 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,9 +154,13 @@ int ft_echo(t_command *cmd);
 int ft_cd(t_command *cmd, t_msh *shell);
 int	ft_pwd(t_command *cmd);
 int	ft_export(t_command *cmd, t_env **env_list);
+int ft_unset(t_command *cmd, t_env **env_list);
+
+/*      builtins         */
 int	ft_env(t_command *cmd, t_env *env_list);
 int ft_exit(t_command *cmd);
-int ft_unset(t_command *cmd, t_env **env_list);
+
+// ft_export_util.c
 
 
 /*      env_util         */
@@ -170,16 +174,13 @@ void print_env_list(t_env *head);
 char		*get_env_value(t_env *env, char *key);
 void set_env_value(t_env **head, const char *key, const char *value);
 void remove_env_key(t_env **head, const char *key);
+bool	env_exists(t_env *env_list, const char *key);
 
-/*     export_utils      */
-int	is_valid_identifier(const char *key);
-void	print_export_error(const char *arg);
-int env_list_size(t_env *env);
-void	sort_env_array(t_env **array, int size);
 
 /*      signals           */
 void handle_sigquit(int sig);
 void handle_sigint(int sig);
 void setup_signals(void);
+
 
 #endif

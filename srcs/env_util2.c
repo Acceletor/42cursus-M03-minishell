@@ -65,3 +65,14 @@ void remove_env_key(t_env **head, const char *key)
         current = current->next;
     }
 }
+
+bool	env_exists(t_env *env_list, const char *key)
+{
+	while (env_list)
+	{
+		if (ft_strcmp(env_list->key, key) == 0)
+			return (true);
+		env_list = env_list->next;
+	}
+	return (false);
+}

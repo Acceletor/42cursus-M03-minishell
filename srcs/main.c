@@ -38,8 +38,9 @@ int	main(int argc, char **argv, char **envp)
         // print_tokens(msh.tokens);
         msh.cmds = parser(msh.tokens);
         free_tokens(&msh.tokens);
-        // execute(&msh);
-        print_command_list(msh.cmds);
+        // print_command_list(msh.cmds);
+        execute(&msh);
+        // print_env_list(msh.dict_env);
         free_command_list(msh.cmds);
         free(msh.input);
     }

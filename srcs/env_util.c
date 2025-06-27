@@ -25,7 +25,10 @@ t_env	*create_env_node(const char *key, const char *value)
 	if (!node)
 		return (NULL);
 	node->key = ft_strdup(key);
-	node->value = ft_strdup(value);
+	if (value)
+		node->value = ft_strdup(value);
+	else
+		node->value = NULL;
 	node->next = NULL;
 	return (node);
 }
