@@ -110,13 +110,13 @@ void	free_env_list(t_env **head)
 
 /*
 Prints all environmet variables in linked list
-    key => value
+    key=value
 */
 void	print_env_list(t_env *head)
 {
 	while (head)
 	{
-		ft_printf("%s => %s\n", head->key, head->value);
+		ft_printf("%s=%s\n", head->key, head->value);
 		head = head->next;
 	}
 }

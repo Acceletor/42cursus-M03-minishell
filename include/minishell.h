@@ -155,12 +155,13 @@ int ft_cd(t_command *cmd, t_msh *shell);
 int	ft_pwd(t_command *cmd);
 int	ft_export(t_command *cmd, t_env **env_list);
 int ft_unset(t_command *cmd, t_env **env_list);
+int	ft_env(t_command *cmd, t_env *env_list);
 
 /*      builtins         */
-int	ft_env(t_command *cmd, t_env *env_list);
 int ft_exit(t_command *cmd);
 
 // ft_export_util.c
+void print_export_list(t_env *env_list);
 
 
 /*      env_util         */
