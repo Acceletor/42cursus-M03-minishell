@@ -143,6 +143,7 @@ void		free_command_list(t_command *cmds);
 
 // syntax_checker.c
 int			check_pipe_syntax(t_token *tokens);
+int check_redirect_syntax(t_token *tokens);
 
 /*     cmd_exe.c         */
 int is_builtin(char *cmd);

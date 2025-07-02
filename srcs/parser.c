@@ -102,7 +102,7 @@ t_command	*parser(t_token *tokens)
 
 	if (!tokens)
 		return (NULL);
-	if (check_pipe_syntax(tokens))
+	if (check_pipe_syntax(tokens) || check_redirect_syntax(tokens))
 		return (NULL);
 	cmds = NULL;
 	while (tokens)
