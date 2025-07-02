@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/29 00:25:21 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/02 23:14:42 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -19,31 +18,51 @@ int	main(int argc, char **argv, char **envp)
 
     if (argc > 1 && argv)
         exit(1);
+
     ft_bzero(&msh, sizeof(t_msh));
     msh.dict_env = init_env(envp);
-    // setup_signals();
-    // print_env_list(msh.dict_env);
+
+    setup_signals();
+
     while (true)
     {
-        // msh.input = ft_strdup("env");
         msh.input = readline("minishell> ");
         if (!msh.input)
-            break;
-        add_history(msh.input); // save input history
-        // ft_printf("\n%s\n",msh.input);
+        {
+            write(1, "exit\n", 5);
+            break;            
+        }
+
+        add_history(msh.input);
+
         msh.tokens = token_stream(&msh);
-        // print_tokens(msh.tokens);
         msh.cmds = parser(msh.tokens);
         free_tokens(&msh.tokens);
+
+        //test for get_path_name
+        if (msh.cmds && msh.cmds->argv && msh.cmds->argv[0])
+        {
+            char *full_path = get_path_name(msh.cmds, msh.dict_env);
+            if (full_path)
+            {
+                printf("Resolved path: %s\n", full_path);
+                free(full_path);
+            }
+            else
+                printf("Command not found in PATH\n");
+        }
+
         execute(&msh);
-        // print_command_list(msh.cmds);
+
         free_command_list(msh.cmds);
         free(msh.input);
     }
-    free_env_list(&msh.dict_env);
-	return (0);
-}
 
+    free_env_list(&msh.dict_env);
+    rl_clear_history();
+
+    return (0);
+}
 
 // int	main(int argc, char **argv, char **envp)
 // {
