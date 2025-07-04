@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 13:28:42 by eeravci           #+#    #+#             */
-/*   Updated: 2025/07/02 23:24:52 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/04 22:15:26 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ void    free_array(char **arr)
     while(arr[i])
         free(arr[i++]);
     free(arr);
+}
+char *join_key_value(char *key, char *value)
+{
+     //calculate lengths
+     //allocate mem
+     //copy the key into new str
 }
 
 char *get_path_name(t_command *cmd, t_env *env)
@@ -68,4 +74,22 @@ char *get_path_name(t_command *cmd, t_env *env)
     free_array(dirs);
     return NULL;
 }
-
+char **env_to_array(t_env *env_list)
+{
+    char **env; 
+    t_env *temp;
+    int len;
+    
+    len = 0;
+    temp = env_list;
+    while (temp)
+    {
+        len++;
+        temp = temp->next;
+    }
+    env = malloc((sizeof(char) * len + 1));
+    if(!env)
+        return NULL;
+    //call join_key_value and fill env string
+    // set and return env
+}

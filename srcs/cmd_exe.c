@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_exe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 12:54:33 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/28 01:07:24 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/04 22:15:41 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,25 @@ int execute_builtins(t_command *cmd, t_msh *shell)
     //    return (ft_exit(cmd));
 
     return (1);
+}
+//complete it and think all cases
+int exec_external(t_command *cmd, t_msh *shell)
+{
+    int status;
+    pid_t pid;
+    char *path;
+    char **envp;
+
+
+    path = get_path_name(cmd, shell->dict_env);
+    pid = fork();
+    if(pid == 0)
+    {
+        execve(path, cmd->argv, shell->dict_env);
+        
+    }
+    else
+        waitpid(pid, &status, 0);
 }
 
 void execute(t_msh *msh)

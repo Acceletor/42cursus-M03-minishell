@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:20:48 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/02 22:39:34 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/04 20:32:10 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,6 @@ void execute(t_msh *msh);
 char *strjoin_three_and_free(char *s1, char *s2, char *s3);
 void    free_array(char **arr);
 char *get_path_name(t_command *cmd, t_env *env);
-void test_get_path_name();
 
 /*      builtins         */
 int ft_echo(t_command *cmd);
