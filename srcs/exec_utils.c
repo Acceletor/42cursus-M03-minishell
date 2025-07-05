@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 13:28:42 by eeravci           #+#    #+#             */
-/*   Updated: 2025/07/04 22:15:26 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/05 20:38:40 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,19 @@ void    free_array(char **arr)
 }
 char *join_key_value(char *key, char *value)
 {
-     //calculate lengths
-     //allocate mem
-     //copy the key into new str
+    int len_key;
+    int len_value;
+    char *res;
+    
+    len_key = ft_strlen(key);
+    len_value = ft_strlen(value);
+    res = malloc(sizeof(char) * (len_key + 1 + len_value + 1));
+    if(!res)
+        return NULL;
+    ft_strlcpy(res, key, len_key + 1);
+    res[len_key] = '=';
+    ft_strlcpy(res + len_key + 1, value, len_value + 1);
+    return res;
 }
 
 char *get_path_name(t_command *cmd, t_env *env)
@@ -79,7 +89,8 @@ char **env_to_array(t_env *env_list)
     char **env; 
     t_env *temp;
     int len;
-    
+    int i;
+        
     len = 0;
     temp = env_list;
     while (temp)
@@ -87,9 +98,17 @@ char **env_to_array(t_env *env_list)
         len++;
         temp = temp->next;
     }
-    env = malloc((sizeof(char) * len + 1));
+    env = malloc(sizeof(char *) * (len + 1));
     if(!env)
         return NULL;
-    //call join_key_value and fill env string
-    // set and return env
+    temp = env_list;
+    i = 0;
+    while(temp)
+    {
+        env[i] = join_key_value(temp->key, temp->value);
+        i++;
+        temp = temp->next; 
+    }
+    env[i] = NULL;
+    return env;
 }

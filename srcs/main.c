@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/02 23:14:42 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/05 21:16:55 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,9 @@ int	main(int argc, char **argv, char **envp)
 
     if (argc > 1 && argv)
         exit(1);
-
     ft_bzero(&msh, sizeof(t_msh));
     msh.dict_env = init_env(envp);
-
     setup_signals();
-
     while (true)
     {
         msh.input = readline("minishell> ");
@@ -32,32 +29,14 @@ int	main(int argc, char **argv, char **envp)
             write(1, "exit\n", 5);
             break;            
         }
-
         add_history(msh.input);
-
         msh.tokens = token_stream(&msh);
         msh.cmds = parser(msh.tokens);
         free_tokens(&msh.tokens);
-
-        //test for get_path_name
-        if (msh.cmds && msh.cmds->argv && msh.cmds->argv[0])
-        {
-            char *full_path = get_path_name(msh.cmds, msh.dict_env);
-            if (full_path)
-            {
-                printf("Resolved path: %s\n", full_path);
-                free(full_path);
-            }
-            else
-                printf("Command not found in PATH\n");
-        }
-
         execute(&msh);
-
         free_command_list(msh.cmds);
         free(msh.input);
     }
-
     free_env_list(&msh.dict_env);
     rl_clear_history();
 

@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 12:54:33 by eeravci           #+#    #+#             */
-/*   Updated: 2025/07/04 22:15:41 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/05 21:19:04 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,53 @@ int execute_builtins(t_command *cmd, t_msh *shell)
     return (1);
 }
 //complete it and think all cases
-int exec_external(t_command *cmd, t_msh *shell)
+static void	execve_child(char *path, t_command *cmd, char **envp)
 {
-    int status;
-    pid_t pid;
-    char *path;
-    char **envp;
+	execve(path, cmd->argv, envp);
+	perror(cmd->argv[0]);
+	exit(1);
+}
 
+static int	handle_fork(char *path, t_command *cmd, char **envp)
+{
+	pid_t	pid;
+	int		status = 0;
 
-    path = get_path_name(cmd, shell->dict_env);
-    pid = fork();
-    if(pid == 0)
-    {
-        execve(path, cmd->argv, shell->dict_env);
-        
-    }
-    else
-        waitpid(pid, &status, 0);
+	pid = fork();
+	if (pid < 0)
+	{
+		perror("fork");
+		return (1);
+	}
+	else if (pid == 0)
+		execve_child(path, cmd, envp);
+	else
+		waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	return (1);
+}
+
+int	exec_external(t_command *cmd, t_msh *shell)
+{
+	char	*path;
+	char	**envp;
+	int		result;
+
+	path = get_path_name(cmd, shell->dict_env);
+	if (!path)
+	{
+		ft_putstr_fd("minishell: command not found: ", 2);
+		ft_putendl_fd(cmd->argv[0], 2);
+		return (127);
+	}
+	envp = env_to_array(shell->dict_env);
+	if (!envp)
+		return (free(path), 1);
+	result = handle_fork(path, cmd, envp);
+	free(path);
+	free_array(envp);
+	return (result);
 }
 
 void execute(t_msh *msh)
@@ -78,9 +108,10 @@ void execute(t_msh *msh)
         if (is_builtin(cmd->argv[0]))
             msh->exit_status = execute_builtins(cmd, msh);
         else
-            print_command_list(cmd);
-            // msh->exit_status = exec_external(cmd, msh);
+            //print_command_list(cmd);
+            msh->exit_status = exec_external(cmd, msh);
         cmd->status_exit = msh->exit_status;
         cmd = cmd->next;
     }
 }
+
