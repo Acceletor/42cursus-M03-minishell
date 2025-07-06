@@ -90,6 +90,14 @@ typedef struct s_msh
 	int			last_exit_code;
 }	t_msh;
 
+typedef struct s_exec_ctx
+{
+	int		index;
+	int		total;
+	int		prev_pipe[2];
+	int		next_pipe[2];
+}	t_exec_ctx;
+
 // function prototypes
 
 // env_util.c
@@ -144,6 +152,10 @@ void		free_command_list(t_command *cmds);
 // syntax_checker.c
 int			check_pipe_syntax(t_token *tokens);
 int check_redirect_syntax(t_token *tokens);
+
+// redirections.c
+void	handle_redirections(t_redirect *redir);
+int handle_heredoc(const char *delimiter);
 
 /*     cmd_exe.c         */
 int is_builtin(char *cmd);

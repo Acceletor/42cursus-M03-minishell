@@ -12,6 +12,7 @@
 
 #include "../include/minishell.h"
 
+
 int	main(int argc, char **argv, char **envp)
 {
     t_msh msh;
@@ -20,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
         exit(1);
     ft_bzero(&msh, sizeof(t_msh));
     msh.dict_env = init_env(envp);
-    setup_signals();
+    // setup_signals();
     while (true)
     {
         msh.input = readline("minishell> ");
@@ -38,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
         free(msh.input);
     }
     free_env_list(&msh.dict_env);
-    rl_clear_history();
+    // rl_clear_history();
 
     return (0);
 }
