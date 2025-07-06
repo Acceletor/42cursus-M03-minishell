@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 12:54:33 by eeravci           #+#    #+#             */
-/*   Updated: 2025/07/05 21:19:04 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/06 23:55:49 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int execute_builtins(t_command *cmd, t_msh *shell)
         return ft_unset(cmd, &shell->dict_env);
     else if (ft_strcmp(cmd->argv[0], "env") == 0)
         return ft_env(cmd, shell->dict_env);
-  //  else if (ft_strcmp(cmd->argv[0], "exit") == 0)
-    //    return (ft_exit(cmd));
+    else if (ft_strcmp(cmd->argv[0], "exit") == 0)
+       return (ft_exit(cmd));
 
     return (1);
 }
@@ -82,7 +82,9 @@ int	exec_external(t_command *cmd, t_msh *shell)
 	char	**envp;
 
     if (!cmd->argv || !cmd->argv[0])
+    {
         exit(127);
+    }
 	path = get_path_name(cmd, shell->dict_env);
 	if (!path)
 	{

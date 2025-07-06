@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:20:48 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/05 20:51:42 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/06 23:56:27 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ typedef struct s_msh
 	t_token		*tokens;
 	t_command	*cmds;
 	int			exit_status;
-	int			last_exit_code;
 }	t_msh;
 
 typedef struct s_exec_ctx
