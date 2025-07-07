@@ -6,41 +6,48 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/07 00:11:08 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/07 22:33:44 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+void	print_welcome_message(void)
+{
+	printf("                 ▗▖  ▗▖▄ ▄▄▄▄  ▄  ▄▄▄ ▐▌   ▗▞▀▚▖█ █ \n");
+	printf("                 ▐▛▚▞▜▌▄ █   █ ▄ ▀▄▄  ▐▌   ▐▛▀▀▘█ █ \n");
+	printf("                 ▐▌  ▐▌█ █   █ █ ▄▄▄▀ ▐▛▀▚▖▝▚▄▄▖█ █ \n");
+	printf("                 ▐▌  ▐▌█       █      ▐▌ ▐▌     █ █ \n");
+	printf("                                                     \n");
+}
 
 int	main(int argc, char **argv, char **envp)
 {
-    t_msh msh;
+	t_msh	msh;
 
-    if (argc > 1 && argv)
-        exit(1);
-    ft_bzero(&msh, sizeof(t_msh));
-    msh.dict_env = init_env(envp);
-    setup_signals();
-    while (true)
-    {
-        msh.input = readline("minishell> ");
-        if (!msh.input)
-        {
-            write(1, "exit\n", 5);
-            break;            
-        }
-        add_history(msh.input);
-        msh.tokens = token_stream(&msh);
-        msh.cmds = parser(msh.tokens);
-        free_tokens(&msh.tokens);
-        // print_command_list(msh.cmds);
-        execute(&msh);
-        free_command_list(msh.cmds);
-        free(msh.input);
-    }
-    free_env_list(&msh.dict_env);
-    // rl_clear_history();
-
-    return (0);
+	if (argc > 1 && argv)
+		exit(1);
+	ft_bzero(&msh, sizeof(t_msh));
+	msh.dict_env = init_env(envp);
+	setup_signals();
+	print_welcome_message();
+	while (true)
+	{
+		msh.input = readline("\033[1;35mminishell> \033[0m");
+		if (!msh.input)
+		{
+			write(1, "exit\n", 5);
+			break ;
+		}
+		add_history(msh.input);
+		msh.tokens = token_stream(&msh);
+		msh.cmds = parser(msh.tokens);
+		free_tokens(&msh.tokens);
+		execute(&msh);
+		free_command_list(msh.cmds);
+		free(msh.input);
+	}
+	free_env_list(&msh.dict_env);
+	return (0);
 }
+// print_command_list(msh.cmds);

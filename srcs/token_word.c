@@ -3,37 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   token_word.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 23:35:49 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/25 23:58:14 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:46:42 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char *extract_single_quote(char *input, int *i)
+char	*extract_single_quote(char *input, int *i)
 {
-    int start;
-    char *text;
+	int		start;
+	char	*text;
 
-    (*i)++;
-    start = *i;
-    while (input[*i] && input[*i] != '\'')
-        (*i)++;
-    if (input[*i] != '\'')
-    {
-        ft_putstr_fd("minishell: syntax error: unclosed single quote\n", 2);
-        return (NULL);
-    }
-    text = ft_strndup(&input[start], *i - start);
-    (*i)++;
-    return (text);
+	(*i)++;
+	start = *i;
+	while (input[*i] && input[*i] != '\'')
+		(*i)++;
+	if (input[*i] != '\'')
+	{
+		ft_putstr_fd("minishell: syntax error: unclosed single quote\n", 2);
+		return (NULL);
+	}
+	text = ft_strndup(&input[start], *i - start);
+	(*i)++;
+	return (text);
 }
 
 static char	*extract_double_quoted_text(char *input, int *i)
 {
-	int		start;
+	int	start;
 
 	start = *i;
 	while (input[*i] && input[*i] != '"' && input[*i] != '$')
@@ -49,39 +49,41 @@ static char	*handle_quoted_part(char *input, int *i, t_msh *msh)
 		return (extract_double_quoted_text(input, i));
 }
 
-char *extract_double_quote(char *input, int *i, t_msh *msh)
+char	*extract_double_quote(char *input, int *i, t_msh *msh)
 {
-	char *result;
-    char *part;
-    
-    (*i)++;
-    result = ft_strdup("");
-    while (input[*i] && input[*i] != '"')
-    {
-        part = handle_quoted_part(input, i, msh);
-        if (!part)
-        {
-            free(result);
-            return (NULL);
-        }
-        result = strjoin_and_free(result, part);
-        if (!result)
-            return (NULL);
-    }
-    if (input[*i] != '"')
-    {
-        ft_putstr_fd("minishell: syntax error: unclosed double quote\n", 2);
-        free(result);
-        return (NULL);
-    }
-    (*i)++;
-    return (result);
+	char	*result;
+	char	*part;
+
+	(*i)++;
+	result = ft_strdup("");
+	while (input[*i] && input[*i] != '"')
+	{
+		part = handle_quoted_part(input, i, msh);
+		if (!part)
+		{
+			free(result);
+			return (NULL);
+		}
+		result = strjoin_and_free(result, part);
+		if (!result)
+			return (NULL);
+	}
+	if (input[*i] != '"')
+	{
+		ft_putstr_fd("minishell: syntax error: unclosed double quote\n", 2);
+		free(result);
+		return (NULL);
+	}
+	(*i)++;
+	return (result);
 }
 
-char *extract_plain_text(char *input, int *i)
+char	*extract_plain_text(char *input, int *i)
 {
-	int	start = *i;
+	int	start;
+
+	start = *i;
 	while (input[*i] && !ft_strchr(" |<>\"'$", input[*i]))
 		(*i)++;
-	return ft_strndup(&input[start], *i - start);
+	return (ft_strndup(&input[start], *i - start));
 }

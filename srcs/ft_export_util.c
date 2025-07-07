@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export_util.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/07 18:46:09 by eeravci           #+#    #+#             */
+/*   Updated: 2025/07/07 18:46:10 by eeravci          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 static void	print_env_entry(t_env *env)
@@ -13,9 +25,9 @@ static void	print_env_entry(t_env *env)
 	ft_putstr_fd("\n", 1);
 }
 
-static int env_list_size(t_env *env)
+static int	env_list_size(t_env *env)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (env)
@@ -28,15 +40,15 @@ static int env_list_size(t_env *env)
 
 static void	sort_env_array(t_env **array, int size)
 {
-	int i;
-	int j;
-	t_env *tmp;
+	int		i;
+	int		j;
+	t_env	*tmp;
 
 	i = 0;
-	while (i < size -1)
+	while (i < size - 1)
 	{
 		j = 0;
-		while(j < size - i - 1)
+		while (j < size - i - 1)
 		{
 			if (ft_strcmp(array[j]->key, array[j + 1]->key) > 0)
 			{
@@ -50,12 +62,12 @@ static void	sort_env_array(t_env **array, int size)
 	}
 }
 
-void print_export_list(t_env *env_list)
+void	print_export_list(t_env *env_list)
 {
-	int	i;
-	int size;
-	t_env **array;
-	t_env *env;
+	int		i;
+	int		size;
+	t_env	**array;
+	t_env	*env;
 
 	size = env_list_size(env_list);
 	array = malloc(sizeof(t_env *) * size);

@@ -1,0 +1,104 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_exe_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/07 19:00:36 by eeravci           #+#    #+#             */
+/*   Updated: 2025/07/07 19:07:02 by eeravci          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/minishell.h"
+
+int	is_builtin(char *cmd)
+{
+	if (!cmd)
+		return (0);
+	return (ft_strcmp(cmd, "echo") == 0 || ft_strcmp(cmd, "cd") == 0
+		|| ft_strcmp(cmd, "pwd") == 0 || ft_strcmp(cmd, "export") == 0
+		|| ft_strcmp(cmd, "unset") == 0 || ft_strcmp(cmd, "env") == 0
+		|| ft_strcmp(cmd, "exit") == 0);
+}
+
+int	execute_builtins(t_command *cmd, t_msh *shell)
+{
+	if (!cmd || !cmd->argv || !cmd->argv[0])
+		return (1);
+	if (ft_strcmp(cmd->argv[0], "echo") == 0)
+		return (ft_echo(cmd));
+	else if (ft_strcmp(cmd->argv[0], "cd") == 0)
+		return (ft_cd(cmd, shell));
+	else if (ft_strcmp(cmd->argv[0], "pwd") == 0)
+		return (ft_pwd(cmd));
+	else if (ft_strcmp(cmd->argv[0], "export") == 0)
+		return (ft_export(cmd, &shell->dict_env));
+	else if (ft_strcmp(cmd->argv[0], "unset") == 0)
+		return (ft_unset(cmd, &shell->dict_env));
+	else if (ft_strcmp(cmd->argv[0], "env") == 0)
+		return (ft_env(cmd, shell->dict_env));
+	else if (ft_strcmp(cmd->argv[0], "exit") == 0)
+		return (ft_exit(cmd));
+	return (1);
+}
+
+int	count_commands(t_command *cmd)
+{
+	int	count;
+
+	count = 0;
+	while (cmd)
+	{
+		count++;
+		cmd = cmd->next;
+	}
+	return (count);
+}
+
+int	create_pipe_if_needed(int i, int total, int pipefd[2], t_msh *msh)
+{
+	if (i < total - 1)
+	{
+		if (pipe(pipefd) == -1)
+		{
+			perror("minishell: pipe");
+			free_command_list(msh->cmds);
+			free_env_list(&msh->dict_env);
+			free(msh->input);
+			exit(1);
+		}
+	}
+	else
+	{
+		pipefd[0] = -1;
+		pipefd[1] = -1;
+	}
+	return (0);
+}
+
+int	exec_external(t_command *cmd, t_msh *shell)
+{
+	char	*path;
+	char	**envp;
+
+	if (!cmd->argv || !cmd->argv[0])
+	{
+		exit(127);
+	}
+	path = get_path_name(cmd, shell->dict_env);
+	if (!path)
+	{
+		ft_putstr_fd("minishell: command not found: ", 2);
+		ft_putendl_fd(cmd->argv[0], 2);
+		exit(127);
+	}
+	envp = env_to_array(shell->dict_env);
+	if (!envp)
+		return (free(path), 1);
+	execve(path, cmd->argv, envp);
+	perror("execve");
+	free(path);
+	free_array(envp);
+	exit(126);
+}

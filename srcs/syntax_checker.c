@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_checker.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 22:23:33 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/19 22:45:33 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/07 19:15:05 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	check_pipe_syntax(t_token *tokens)
 		return (0);
 	if (tokens->type == TOKEN_PIPE)
 	{
-		ft_putendl_fd("minishell: syntax error near unexpected token `|'", STDERR_FILENO);
+		ft_putendl_fd("minishell: syntax error near unexpected token `|'",
+			STDERR_FILENO);
 		return (1);
 	}
 	while (tokens)
@@ -28,7 +29,9 @@ int	check_pipe_syntax(t_token *tokens)
 			tokens = tokens->next;
 			if (!tokens || tokens->type == TOKEN_PIPE)
 			{
-				ft_putendl_fd("minishell: syntax error near unexpected token `|'", STDERR_FILENO);
+				ft_printf("minishell:");
+				ft_putstr_fd(" syntax error near unexpected token `|'",
+					STDERR_FILENO);
 				return (1);
 			}
 		}
@@ -38,8 +41,7 @@ int	check_pipe_syntax(t_token *tokens)
 	return (0);
 }
 
-
-int check_redirect_syntax(t_token *tokens)
+int	check_redirect_syntax(t_token *tokens)
 {
 	while (tokens)
 	{
@@ -47,7 +49,8 @@ int check_redirect_syntax(t_token *tokens)
 		{
 			if (!tokens->next || tokens->next->type != TOKEN_WORD)
 			{
-				ft_putstr_fd("minishell: syntax error near unexpected token ", STDERR_FILENO);
+				ft_putstr_fd("minishell: syntax error near unexpected token ",
+					STDERR_FILENO);
 				if (tokens->next)
 					ft_putstr_fd(tokens->next->value, STDERR_FILENO);
 				else

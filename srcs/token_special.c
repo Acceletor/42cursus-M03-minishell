@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_special.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:04:59 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/16 22:05:40 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:51:16 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 int	is_valid_special_token(const char *str)
 {
-	return (!ft_strcmp(str, ">") ||
-			!ft_strcmp(str, ">>") ||
-			!ft_strcmp(str, "<") ||
-			!ft_strcmp(str, "<<") ||
-			!ft_strcmp(str, "|"));
+	return (!ft_strcmp(str, ">") || !ft_strcmp(str, ">>") || !ft_strcmp(str,
+			"<") || !ft_strcmp(str, "<<") || !ft_strcmp(str, "|"));
 }
 
 char	*extract_special_chunk(const char *input, int *i)
@@ -32,12 +29,6 @@ char	*extract_special_chunk(const char *input, int *i)
 	chunk = ft_strndup(&input[start], *i - start);
 	return (chunk);
 }
-
-// void handle_unexpected_token(char *c)
-// {
-
-// }
-
 
 int	handle_special_tokens(char *input, int *i, t_token **tokens)
 {

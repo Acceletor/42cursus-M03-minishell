@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:58:48 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/28 01:16:33 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:45:59 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
 
 static int	is_valid_identifier(const char *key)
 {
@@ -75,7 +74,7 @@ static int	process_export_arg(const char *arg, t_env **env_list)
 int	ft_export(t_command *cmd, t_env **env_list)
 {
 	int	i;
-	int status;
+	int	status;
 
 	status = 0;
 	if (!cmd->argv[1])

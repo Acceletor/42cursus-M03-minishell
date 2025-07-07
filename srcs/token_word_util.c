@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_word_util.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 23:36:00 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/25 23:37:06 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:47:16 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,44 +56,44 @@ char	*strjoin_and_free(char *s1, char *s2)
 	return (res);
 }
 
-char *handle_dollar_braces(char *input, int *i)
+char	*handle_dollar_braces(char *input, int *i)
 {
-    int start;
-    char *var;
+	int		start;
+	char	*var;
 
-    start = ++(*i);
-    while (input[*i] && input[*i] != '}')
-        (*i)++;
-    if (input[*i] != '}')
-    {
-        ft_putstr_fd("minishell: syntax error: missing '}' in ${VAR}\n", 2);
-        return (ft_strdup(""));
-    }
-    var = ft_strndup(&input[start], *i - start);
-    (*i)++;
-    return (var);
+	start = ++(*i);
+	while (input[*i] && input[*i] != '}')
+		(*i)++;
+	if (input[*i] != '}')
+	{
+		ft_putstr_fd("minishell: syntax error: missing '}' in ${VAR}\n", 2);
+		return (ft_strdup(""));
+	}
+	var = ft_strndup(&input[start], *i - start);
+	(*i)++;
+	return (var);
 }
 
-char *extract_dollar_value(char *input, int *i, t_msh *msh)
+char	*extract_dollar_value(char *input, int *i, t_msh *msh)
 {
 	char	*var;
 
 	(*i)++;
-    if (input[*i] == '{')  //${var}
-        var = handle_dollar_braces(input, i);
-    else if (input[*i] == '?') // $?
-    {
-        (*i)++;
-        return (ft_itoa(msh->exit_status)); 
-    }
-    else if (input[*i] && ft_isdigit(input[*i])) // $2 $1
-    {
-        (*i)++;
-        return (ft_strdup(""));
-    }  
-    else if (input[*i] && (ft_isalpha(input[*i]) || input[*i] == '_'))
-        var = extract_var_name(input, i);
-    else
-	    return (ft_strdup("$"));
-    return (get_variable_value(var, msh));
+	if (input[*i] == '{')
+		var = handle_dollar_braces(input, i);
+	else if (input[*i] == '?')
+	{
+		(*i)++;
+		return (ft_itoa(msh->exit_status));
+	}
+	else if (input[*i] && ft_isdigit(input[*i]))
+	{
+		(*i)++;
+		return (ft_strdup(""));
+	}
+	else if (input[*i] && (ft_isalpha(input[*i]) || input[*i] == '_'))
+		var = extract_var_name(input, i);
+	else
+		return (ft_strdup("$"));
+	return (get_variable_value(var, msh));
 }

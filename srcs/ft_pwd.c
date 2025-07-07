@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 12:49:33 by eeravci           #+#    #+#             */
-/*   Updated: 2025/06/24 23:06:51 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/07 18:46:15 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_pwd(t_command *cmd)
 {
-	char *pwd;
+	char	*pwd;
 
 	(void)cmd;
 	pwd = getcwd(NULL, 0);

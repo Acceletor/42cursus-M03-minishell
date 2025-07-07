@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 22:23:26 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/06/27 23:54:48 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/07 19:09:43 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,35 +30,35 @@ void	print_redirects(t_redirect *redir)
 	}
 }
 
-void	print_command_list(t_command *cmds)
-{
-	int	i;
-	int	cmd_num;
+// void	print_command_list(t_command *cmds)
+// {
+// 	int	i;
+// 	int	cmd_num;
 
-	if (!cmds)
-	{
-		ft_printf("null\n");
-		return ;
-	}
-	cmd_num = 1;
-	while (cmds)
-	{
-		ft_printf("=== Command %d ===\n", cmd_num++);
-		if (cmds->argv)
-		{
-			i = 0;
-			while (cmds->argv[i])
-			{
-				ft_printf("    argv[%d]: \"%s\"\n", i, cmds->argv[i]);
-				i++;
-			}
-		}
-		print_redirects(cmds->redirects);
-		ft_printf("LEN:%d\n", cmds->argc +1);
-		ft_printf("-----------------\n");
-		cmds = cmds->next;
-	}
-}
+// 	if (!cmds)
+// 	{
+// 		ft_printf("null\n");
+// 		return ;
+// 	}
+// 	cmd_num = 1;
+// 	while (cmds)
+// 	{
+// 		ft_printf("=== Command %d ===\n", cmd_num++);
+// 		if (cmds->argv)
+// 		{
+// 			i = 0;
+// 			while (cmds->argv[i])
+// 			{
+// 				ft_printf("    argv[%d]: \"%s\"\n", i, cmds->argv[i]);
+// 				i++;
+// 			}
+// 		}
+// 		print_redirects(cmds->redirects);
+// 		ft_printf("LEN:%d\n", cmds->argc + 1);
+// 		ft_printf("-----------------\n");
+// 		cmds = cmds->next;
+// 	}
+// }
 
 void	free_redirects(t_redirect *redir)
 {
