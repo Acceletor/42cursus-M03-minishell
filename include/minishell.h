@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:20:48 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/07 22:09:00 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/08 18:33:44 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,7 @@ void					add_env_node(t_env **head, const char *key,
 t_env					*init_env(char **envp);
 void					free_env_list(t_env **head);
 void					print_env_list(t_env *head);
+int						exec_program_name(t_command *cmd, t_msh *msh);
 
 /*      env_util2         */
 char					*get_env_value(t_env *env, char *key);

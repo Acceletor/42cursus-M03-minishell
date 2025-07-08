@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 12:54:33 by eeravci           #+#    #+#             */
-/*   Updated: 2025/07/07 19:59:51 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/08 18:35:52 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	child_process(t_command *cmd, t_msh *msh, t_exec_ctx *ctx)
 	handle_redirections(cmd->redirects);
 	if (is_builtin(cmd->argv[0]))
 		exit(execute_builtins(cmd, msh));
+	if (exec_program_name(cmd, msh) == 0)
+		exit(0);
 	exec_external(cmd, msh);
 	exit(1);
 }
