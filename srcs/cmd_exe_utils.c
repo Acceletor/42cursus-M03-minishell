@@ -83,23 +83,24 @@ char *resolve_cmd_path(t_command *cmd, t_msh *shell)
 
 	if (ft_strchr(cmd->argv[0], '/'))
 	{
+		if (access(cmd->argv[0], F_OK) != 0)
+		{
+			ft_printf("minishell: %s: No such file or directory\n", cmd->argv[0]);
+			exit(127);
+		}
 		if (access(cmd->argv[0], X_OK) != 0)
 		{
 			ft_putstr_fd("minishell: ", 2);
 			perror(cmd->argv[0]);
 			exit(126);
 		}
-		path =ft_strdup(cmd->argv[0]);
+		return (ft_strdup(cmd->argv[0]));
 	}
-	else
+	path = get_path_name(cmd, shell->dict_env);
+	if (!path)
 	{
-		path = get_path_name(cmd, shell->dict_env);
-		if (!path)
-		{
-			ft_putstr_fd("minishell: command not found: ", 2);
-			ft_putendl_fd(cmd->argv[0], 2);
-			exit(127);
-		}
+		ft_printf("minishell: command not found: %s\n", cmd->argv[0]);
+		exit(127);
 	}
 	return (path);
 }
@@ -114,13 +115,14 @@ int	exec_external(t_command *cmd, t_msh *shell)
 	if (!cmd->argv || !cmd->argv[0])
 		exit(127);
 	path = resolve_cmd_path(cmd, shell);
-	if (stat(path, &st) == 0 && S_ISDIR(st.st_mode))
+	if (stat(path, &st) == 0)
 	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putendl_fd(": is a directory", 2);
-		free(path);
-		exit(126);
+		if (S_ISDIR(st.st_mode))
+		{
+			ft_printf("minishell: %s: is a directory\n", path);
+			free(path);
+			exit(126);
+		}
 	}
 	envp = env_to_array(shell->dict_env);
 	if (!envp)
