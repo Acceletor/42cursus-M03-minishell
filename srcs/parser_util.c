@@ -30,35 +30,35 @@ void	print_redirects(t_redirect *redir)
 	}
 }
 
-// void	print_command_list(t_command *cmds)
-// {
-// 	int	i;
-// 	int	cmd_num;
+void	print_command_list(t_command *cmds)
+{
+	int	i;
+	int	cmd_num;
 
-// 	if (!cmds)
-// 	{
-// 		ft_printf("null\n");
-// 		return ;
-// 	}
-// 	cmd_num = 1;
-// 	while (cmds)
-// 	{
-// 		ft_printf("=== Command %d ===\n", cmd_num++);
-// 		if (cmds->argv)
-// 		{
-// 			i = 0;
-// 			while (cmds->argv[i])
-// 			{
-// 				ft_printf("    argv[%d]: \"%s\"\n", i, cmds->argv[i]);
-// 				i++;
-// 			}
-// 		}
-// 		print_redirects(cmds->redirects);
-// 		ft_printf("LEN:%d\n", cmds->argc + 1);
-// 		ft_printf("-----------------\n");
-// 		cmds = cmds->next;
-// 	}
-// }
+	if (!cmds)
+	{
+		ft_printf("null\n");
+		return ;
+	}
+	cmd_num = 1;
+	while (cmds)
+	{
+		ft_printf("=== Command %d ===\n", cmd_num++);
+		if (cmds->argv)
+		{
+			i = 0;
+			while (cmds->argv[i])
+			{
+				ft_printf("    argv[%d]: \"%s\"\n", i, cmds->argv[i]);
+				i++;
+			}
+		}
+		print_redirects(cmds->redirects);
+		ft_printf("LEN:%d\n", cmds->argc + 1);
+		ft_printf("-----------------\n");
+		cmds = cmds->next;
+	}
+}
 
 void	free_redirects(t_redirect *redir)
 {

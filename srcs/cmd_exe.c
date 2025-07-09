@@ -26,6 +26,8 @@ void	child_process(t_command *cmd, t_msh *msh, t_exec_ctx *ctx)
 		close(ctx->next_pipe[1]);
 	}
 	handle_redirections(cmd->redirects);
+    if (!cmd->argv || !cmd->argv[0])
+        exit (0);
 	if (is_builtin(cmd->argv[0]))
 		exit(execute_builtins(cmd, msh));
 	if (exec_program_name(cmd, msh) == 0)
@@ -84,7 +86,7 @@ void	execute(t_msh *msh)
     }
     cmd = msh->cmds;
 	init_exec_ctx(&ctx, count_commands(cmd));
-	if (ctx.total == 1 && is_builtin(cmd->argv[0]))
+	if (ctx.total == 1 && cmd->argv && cmd->argv[0] && is_builtin(cmd->argv[0]))
 	{
 		stdin_backup = dup(STDIN_FILENO);
 		stdout_backup = dup(STDOUT_FILENO);
