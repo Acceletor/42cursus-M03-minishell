@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
 		exit(1);
 	ft_bzero(&msh, sizeof(t_msh));
 	msh.dict_env = init_env(envp);
-	setup_signals();
+	// setup_signals();
 	print_welcome_message();
 	while (true)
 	{

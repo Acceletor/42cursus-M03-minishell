@@ -76,6 +76,13 @@ void	execute(t_msh *msh)
 	int			stdout_backup;
 
 	cmd = msh->cmds;
+    while (cmd)
+    {
+        if (heredoc_prepare(cmd))
+            return ;
+        cmd = cmd->next;
+    }
+    cmd = msh->cmds;
 	init_exec_ctx(&ctx, count_commands(cmd));
 	if (ctx.total == 1 && is_builtin(cmd->argv[0]))
 	{

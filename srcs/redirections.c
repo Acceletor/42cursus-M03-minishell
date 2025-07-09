@@ -15,7 +15,17 @@
 void	handle_redirections(t_redirect *redir)
 {
 	int	fd;
-
+	t_redirect *tmp;
+	t_redirect *last_heredoc;
+	
+	last_heredoc = NULL;
+	tmp = redir;
+	while (tmp)
+	{
+		if (tmp->type == TOKEN_HEREDOC)
+			last_heredoc = tmp;
+		tmp = tmp->next;
+	}
 	while (redir)
 	{
 		fd = -1;
@@ -26,12 +36,14 @@ void	handle_redirections(t_redirect *redir)
 		else if (redir->type == TOKEN_REDIR_IN)
 			fd = open(redir->file, O_RDONLY);
 		else if (redir->type == TOKEN_HEREDOC)
-			fd = handle_heredoc(redir->file);
+			fd = ft_atoi(redir->file);
 		if (fd < 0)
 			perror("minishell: redirection");
 		else
 		{
-			if (redir->type == TOKEN_REDIR_IN || redir->type == TOKEN_HEREDOC)
+			if (redir->type == TOKEN_HEREDOC && redir != last_heredoc)
+				close(fd);
+			else if (redir->type == TOKEN_REDIR_IN || redir->type == TOKEN_HEREDOC)
 				dup2(fd, STDIN_FILENO);
 			else
 				dup2(fd, STDOUT_FILENO);
@@ -65,4 +77,28 @@ int	handle_heredoc(const char *delimiter)
 	}
 	close(pipefd[1]);
 	return (pipefd[0]);
+}
+
+int heredoc_prepare(t_command *cmd)
+{
+	t_redirect *redir;
+	int fd;
+
+	redir = cmd->redirects;
+	while (redir)
+	{
+		if (redir->type == TOKEN_HEREDOC)
+		{
+			fd = handle_heredoc(redir->file);
+			if (fd < 0)
+			{
+				perror("heredoc");
+				return (1);
+			}
+			free(redir->file);
+			redir->file = ft_itoa(fd);
+		}
+		redir = redir->next;
+	}
+	return (0);
 }

@@ -153,6 +153,7 @@ int						check_redirect_syntax(t_token *tokens);
 // redirections.c
 void					handle_redirections(t_redirect *redir);
 int						handle_heredoc(const char *delimiter);
+int heredoc_prepare(t_command *cmd);
 
 /*     cmd_exe.c         */
 int						is_builtin(char *cmd);
