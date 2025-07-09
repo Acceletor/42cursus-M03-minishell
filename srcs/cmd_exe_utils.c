@@ -77,22 +77,42 @@ int	create_pipe_if_needed(int i, int total, int pipefd[2], t_msh *msh)
 	return (0);
 }
 
+char *resolve_cmd_path(t_command *cmd, t_msh *shell)
+{
+	char *path;
+
+	if (ft_strchr(cmd->argv[0], '/'))
+	{
+		if (access(cmd->argv[0], X_OK) != 0)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			perror(cmd->argv[0]);
+			exit(126);
+		}
+		path =ft_strdup(cmd->argv[0]);
+	}
+	else
+	{
+		path = get_path_name(cmd, shell->dict_env);
+		if (!path)
+		{
+			ft_putstr_fd("minishell: command not found: ", 2);
+			ft_putendl_fd(cmd->argv[0], 2);
+			exit(127);
+		}
+	}
+	return (path);
+}
+
+
 int	exec_external(t_command *cmd, t_msh *shell)
 {
 	char	*path;
 	char	**envp;
 
 	if (!cmd->argv || !cmd->argv[0])
-	{
 		exit(127);
-	}
-	path = get_path_name(cmd, shell->dict_env);
-	if (!path)
-	{
-		ft_putstr_fd("minishell: command not found: ", 2);
-		ft_putendl_fd(cmd->argv[0], 2);
-		exit(127);
-	}
+	path = resolve_cmd_path(cmd, shell);
 	envp = env_to_array(shell->dict_env);
 	if (!envp)
 		return (free(path), 1);
