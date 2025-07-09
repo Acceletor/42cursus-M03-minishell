@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/09 22:49:41 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/10 00:00:52 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@ void	print_welcome_message(void)
 	printf("                 ▐▌  ▐▌█ █   █ █ ▄▄▄▀ ▐▛▀▚▖▝▚▄▄▖█ █ \n");
 	printf("                 ▐▌  ▐▌█       █      ▐▌ ▐▌     █ █ \n");
 	printf("                                                     \n");
+}
+
+int	check_input_and_exit(char *input)
+{
+	if (!input)
+	{
+		write(1, "exit\n", 5);
+		return (1);
+	}
+	return (0);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -34,11 +44,8 @@ int	main(int argc, char **argv, char **envp)
 	while (true)
 	{
 		msh.input = readline("\033[1;35mminishell> \033[0m");
-		if (!msh.input)
-		{
-			write(1, "exit\n", 5);
+		if (check_input_and_exit(msh.input))
 			break ;
-		}
 		add_history(msh.input);
 		msh.tokens = token_stream(&msh);
 		msh.cmds = parser(msh.tokens);
