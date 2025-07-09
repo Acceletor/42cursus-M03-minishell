@@ -54,8 +54,7 @@ void	print_command_list(t_command *cmds)
 			}
 		}
 		print_redirects(cmds->redirects);
-		ft_printf("LEN:%d\n", cmds->argc + 1);
-		ft_printf("-----------------\n");
+		ft_printf("LEN:%d\n-----------------\n",cmds->argc + 1);
 		cmds = cmds->next;
 	}
 }

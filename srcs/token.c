@@ -22,11 +22,8 @@ t_token	*token_stream(t_msh *msh)
 	tokens = NULL;
 	while (msh->input[i])
 	{
-		if (msh->input[i] == ' ')
-		{
-			i++;
+		if (skip_whitespace(msh->input, &i))
 			continue ;
-		}
 		ret = handle_special_tokens(msh->input, &i, &tokens);
 		if (ret == 1)
 			continue ;
@@ -44,7 +41,17 @@ t_token	*token_stream(t_msh *msh)
 	return (tokens);
 }
 
-static char	*extract_word_part(t_msh *msh, int *i)
+int	skip_whitespace(char *input, int *i)
+{
+	if (input[*i] == ' ')
+	{
+		(*i)++;
+		return (1);
+	}
+	return (0);
+}
+
+char	*extract_word_part(t_msh *msh, int *i)
 {
 	if (msh->input[*i] == '\'')
 		return (extract_single_quote(msh->input, i));

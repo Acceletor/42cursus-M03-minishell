@@ -59,7 +59,7 @@ void	wait_all(int *exit_status)
 	}
 }
 
-static void	init_exec_ctx(t_exec_ctx *ctx, int total)
+void	init_exec_ctx(t_exec_ctx *ctx, int total)
 {
 	ctx->index = 0;
 	ctx->total = total;
@@ -69,13 +69,54 @@ static void	init_exec_ctx(t_exec_ctx *ctx, int total)
 	ctx->next_pipe[1] = -1;
 }
 
+int	handle_single_builtin(t_command *cmd, t_msh *msh)
+{
+	int	stdin_backup;
+	int	stdout_backup;
+
+	if (!cmd || count_commands(cmd) != 1)
+		return (0);
+	if (!cmd->argv || !cmd->argv[0])
+		return (0);
+	if (!is_builtin(cmd->argv[0]))
+		return (0);
+	stdin_backup = dup(STDIN_FILENO);
+	stdout_backup = dup(STDOUT_FILENO);
+	handle_redirections(cmd->redirects);
+	msh->exit_status = execute_builtins(cmd, msh);
+	dup2(stdin_backup, STDIN_FILENO);
+	dup2(stdout_backup, STDOUT_FILENO);
+	close(stdin_backup);
+	close(stdout_backup);
+	return (1);
+}
+
+void	exec_loop(t_msh *msh, t_command *cmd, t_exec_ctx *ctx)
+{
+	pid_t	pid;
+
+	while (ctx->index < ctx->total)
+	{
+		create_pipe_if_needed(ctx->index, ctx->total, ctx->next_pipe, msh);
+		pid = fork();
+		if (pid == 0)
+			child_process(cmd, msh, ctx);
+		else if (pid < 0)
+		{
+			perror("minishell: fork");
+			msh->exit_status = 1;
+			return ;
+		}
+		parent_pipe_cleanup(ctx);
+		cmd = cmd->next;
+		ctx->index++;
+	}
+}
+
 void	execute(t_msh *msh)
 {
 	t_command	*cmd;
 	t_exec_ctx	ctx;
-	pid_t		pid;
-	int			stdin_backup;
-	int			stdout_backup;
 
 	cmd = msh->cmds;
     while (cmd)
@@ -86,33 +127,8 @@ void	execute(t_msh *msh)
     }
     cmd = msh->cmds;
 	init_exec_ctx(&ctx, count_commands(cmd));
-	if (ctx.total == 1 && cmd->argv && cmd->argv[0] && is_builtin(cmd->argv[0]))
-	{
-		stdin_backup = dup(STDIN_FILENO);
-		stdout_backup = dup(STDOUT_FILENO);
-		handle_redirections(cmd->redirects);
-		msh->exit_status = execute_builtins(cmd, msh);
-		dup2(stdin_backup, STDIN_FILENO);
-		dup2(stdout_backup, STDOUT_FILENO);
-		close(stdin_backup);
-		close(stdout_backup);
+	if (handle_single_builtin(cmd, msh))
 		return ;
-	}
-	while (ctx.index < ctx.total)
-	{
-		create_pipe_if_needed(ctx.index, ctx.total, ctx.next_pipe, msh);
-		pid = fork();
-		if (pid == 0)
-			child_process(cmd, msh, &ctx);
-		else if (pid < 0)
-		{
-			perror("minishill: fork");
-			msh->exit_status = 1;
-			return ;
-		}
-		parent_pipe_cleanup(&ctx);
-		cmd = cmd->next;
-		ctx.index++;
-	}
+	exec_loop(msh, cmd, &ctx);
 	wait_all(&msh->exit_status);
 }

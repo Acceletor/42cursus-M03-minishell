@@ -30,6 +30,21 @@ char	*extract_special_chunk(const char *input, int *i)
 	return (chunk);
 }
 
+void	add_token_by_type(char *chunk, t_token **tokens)
+{
+	if (!ft_strcmp(chunk, ">"))
+		add_token(tokens, new_token(">", TOKEN_REDIR_OUT));
+	else if (!ft_strcmp(chunk, ">>"))
+		add_token(tokens, new_token(">>", TOKEN_APPEND));
+	else if (!ft_strcmp(chunk, "<"))
+		add_token(tokens, new_token("<", TOKEN_REDIR_IN));
+	else if (!ft_strcmp(chunk, "<<"))
+		add_token(tokens, new_token("<<", TOKEN_HEREDOC));
+	else if (!ft_strcmp(chunk, "|"))
+		add_token(tokens, new_token("|", TOKEN_PIPE));
+}
+
+
 int	handle_special_tokens(char *input, int *i, t_token **tokens)
 {
 	char	*chunk;
@@ -47,16 +62,7 @@ int	handle_special_tokens(char *input, int *i, t_token **tokens)
 		free(chunk);
 		return (-1);
 	}
-	if (!ft_strcmp(chunk, ">"))
-		add_token(tokens, new_token(">", TOKEN_REDIR_OUT));
-	else if (!ft_strcmp(chunk, ">>"))
-		add_token(tokens, new_token(">>", TOKEN_APPEND));
-	else if (!ft_strcmp(chunk, "<"))
-		add_token(tokens, new_token("<", TOKEN_REDIR_IN));
-	else if (!ft_strcmp(chunk, "<<"))
-		add_token(tokens, new_token("<<", TOKEN_HEREDOC));
-	else if (!ft_strcmp(chunk, "|"))
-		add_token(tokens, new_token("|", TOKEN_PIPE));
+	add_token_by_type(chunk, tokens);
 	free(chunk);
 	return (1);
 }

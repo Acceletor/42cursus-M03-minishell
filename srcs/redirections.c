@@ -12,9 +12,35 @@
 
 #include "../include/minishell.h"
 
-void	handle_redirections(t_redirect *redir)
+int	handle_single_redirect(t_redirect *redir, t_redirect *last_heredoc)
 {
 	int	fd;
+
+	fd = -1;
+	if (redir->type == TOKEN_REDIR_OUT)
+		fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (redir->type == TOKEN_APPEND)
+		fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else if (redir->type == TOKEN_REDIR_IN)
+		fd = open(redir->file, O_RDONLY);
+	else if (redir->type == TOKEN_HEREDOC)
+		fd = ft_atoi(redir->file);
+	if (fd < 0)
+		return (-1);
+	if (redir->type == TOKEN_HEREDOC && redir != last_heredoc)
+		close(fd);
+	else if (redir->type == TOKEN_REDIR_IN || redir->type == TOKEN_HEREDOC)
+		dup2(fd, STDIN_FILENO);
+	else
+		dup2(fd, STDOUT_FILENO);
+	if (!(redir->type == TOKEN_HEREDOC && redir != last_heredoc))
+		close(fd);
+	return (0);
+}
+
+
+void	handle_redirections(t_redirect *redir)
+{
 	t_redirect *tmp;
 	t_redirect *last_heredoc;
 	
@@ -28,26 +54,10 @@ void	handle_redirections(t_redirect *redir)
 	}
 	while (redir)
 	{
-		fd = -1;
-		if (redir->type == TOKEN_REDIR_OUT)
-			fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else if (redir->type == TOKEN_APPEND)
-			fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		else if (redir->type == TOKEN_REDIR_IN)
-			fd = open(redir->file, O_RDONLY);
-		else if (redir->type == TOKEN_HEREDOC)
-			fd = ft_atoi(redir->file);
-		if (fd < 0)
-			perror("minishell: redirection");
-		else
+		if (handle_single_redirect(redir, last_heredoc) == -1)
 		{
-			if (redir->type == TOKEN_HEREDOC && redir != last_heredoc)
-				close(fd);
-			else if (redir->type == TOKEN_REDIR_IN || redir->type == TOKEN_HEREDOC)
-				dup2(fd, STDIN_FILENO);
-			else
-				dup2(fd, STDOUT_FILENO);
-			close(fd);
+			perror("minishell: redirection");
+			exit(0);
 		}
 		redir = redir->next;
 	}
