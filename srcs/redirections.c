@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:48:01 by eeravci           #+#    #+#             */
-/*   Updated: 2025/07/07 18:48:06 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/09 23:02:09 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,11 @@ int	handle_single_redirect(t_redirect *redir, t_redirect *last_heredoc)
 	return (0);
 }
 
-
 void	handle_redirections(t_redirect *redir)
 {
-	t_redirect *tmp;
-	t_redirect *last_heredoc;
-	
+	t_redirect	*tmp;
+	t_redirect	*last_heredoc;
+
 	last_heredoc = NULL;
 	tmp = redir;
 	while (tmp)
@@ -89,10 +88,10 @@ int	handle_heredoc(const char *delimiter)
 	return (pipefd[0]);
 }
 
-int heredoc_prepare(t_command *cmd)
+int	heredoc_prepare(t_command *cmd)
 {
-	t_redirect *redir;
-	int fd;
+	t_redirect	*redir;
+	int			fd;
 
 	redir = cmd->redirects;
 	while (redir)

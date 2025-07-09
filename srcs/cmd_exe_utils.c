@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_exe_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:00:36 by eeravci           #+#    #+#             */
-/*   Updated: 2025/07/07 19:07:02 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/09 22:56:12 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,16 @@ int	create_pipe_if_needed(int i, int total, int pipefd[2], t_msh *msh)
 	return (0);
 }
 
-char *resolve_cmd_path(t_command *cmd, t_msh *shell)
+char	*resolve_cmd_path(t_command *cmd, t_msh *shell)
 {
-	char *path;
+	char	*path;
 
 	if (ft_strchr(cmd->argv[0], '/'))
 	{
 		if (access(cmd->argv[0], F_OK) != 0)
 		{
-			ft_printf("minishell: %s: No such file or directory\n", cmd->argv[0]);
+			ft_printf("minishell: %s: No such file or directory\n",
+				cmd->argv[0]);
 			exit(127);
 		}
 		if (access(cmd->argv[0], X_OK) != 0)
@@ -103,33 +104,4 @@ char *resolve_cmd_path(t_command *cmd, t_msh *shell)
 		exit(127);
 	}
 	return (path);
-}
-
-
-int	exec_external(t_command *cmd, t_msh *shell)
-{
-	char	*path;
-	char	**envp;
-	struct stat	st;
-
-	if (!cmd->argv || !cmd->argv[0])
-		exit(127);
-	path = resolve_cmd_path(cmd, shell);
-	if (stat(path, &st) == 0)
-	{
-		if (S_ISDIR(st.st_mode))
-		{
-			ft_printf("minishell: %s: is a directory\n", path);
-			free(path);
-			exit(126);
-		}
-	}
-	envp = env_to_array(shell->dict_env);
-	if (!envp)
-		return (free(path), 1);
-	execve(path, cmd->argv, envp);
-	perror("execve");
-	free(path);
-	free_array(envp);
-	exit(126);
 }

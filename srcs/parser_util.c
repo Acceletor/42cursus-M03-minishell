@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 22:23:26 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/07 19:09:43 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/09 22:50:55 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	print_command_list(t_command *cmds)
 			}
 		}
 		print_redirects(cmds->redirects);
-		ft_printf("LEN:%d\n-----------------\n",cmds->argc + 1);
+		ft_printf("LEN:%d\n-----------------\n", cmds->argc + 1);
 		cmds = cmds->next;
 	}
 }

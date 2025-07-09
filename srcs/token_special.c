@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_special.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:04:59 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/07 18:51:16 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/09 23:00:57 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	add_token_by_type(char *chunk, t_token **tokens)
 	else if (!ft_strcmp(chunk, "|"))
 		add_token(tokens, new_token("|", TOKEN_PIPE));
 }
-
 
 int	handle_special_tokens(char *input, int *i, t_token **tokens)
 {

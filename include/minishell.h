@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:20:48 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/08 18:33:44 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/09 23:01:26 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,9 @@ void					print_env_list(t_env *head);
 
 // token.c
 t_token					*token_stream(t_msh *msh);
-int	skip_whitespace(char *input, int *i);
-char	*extract_word_part(t_msh *msh, int *i);
+int						skip_whitespace(char *input, int *i);
+char					*extract_word_part(t_msh *msh, int *i);
 int						handle_word(t_msh *msh, int *i, t_token **tokens);
-
 
 // token_special.c
 int						handle_pipe(char *input, int *i, t_token **tokens);
@@ -118,7 +117,7 @@ int						handle_redir_out(char *input, int *i, t_token **tokens);
 int						handle_redir_in(char *input, int *i, t_token **tokens);
 int						handle_special_tokens(char *input, int *i,
 							t_token **tokens);
-void	add_token_by_type(char *chunk, t_token **tokens);
+void					add_token_by_type(char *chunk, t_token **tokens);
 
 // token_util.c
 t_token					*new_token(char *value, t_token_type type);
@@ -156,27 +155,32 @@ int						check_pipe_syntax(t_token *tokens);
 int						check_redirect_syntax(t_token *tokens);
 
 // redirections.c
-int	handle_single_redirect(t_redirect *redir, t_redirect *last_heredoc);
+int						handle_single_redirect(t_redirect *redir,
+							t_redirect *last_heredoc);
 void					handle_redirections(t_redirect *redir);
 int						handle_heredoc(const char *delimiter);
-int heredoc_prepare(t_command *cmd);
+int						heredoc_prepare(t_command *cmd);
 
 /*     cmd_exe.c         */
-void	child_process(t_command *cmd, t_msh *msh, t_exec_ctx *ctx);
-void	parent_pipe_cleanup(t_exec_ctx *ctx);
-void	wait_all(int *exit_status);
-void	init_exec_ctx(t_exec_ctx *ctx, int total);
-int	handle_single_builtin(t_command *cmd, t_msh *msh);
-void	exec_loop(t_msh *msh, t_command *cmd, t_exec_ctx *ctx);
+void					child_process(t_command *cmd, t_msh *msh,
+							t_exec_ctx *ctx);
+void					parent_pipe_cleanup(t_exec_ctx *ctx);
+void					wait_all(int *exit_status);
+void					init_exec_ctx(t_exec_ctx *ctx, int total);
 void					execute(t_msh *msh);
 
-/*  cmd_exe_utils.c     */
+//  cmd_exe_utils.c    
 int						is_builtin(char *cmd);
 int						execute_builtins(t_command *cmd, t_msh *shell);
 int						count_commands(t_command *cmd);
 int						create_pipe_if_needed(int i, int total, int pipefd[2],
 							t_msh *msh);
+char					*resolve_cmd_path(t_command *cmd, t_msh *shell);
+
+//	cmd_exe_utils2.c 
 int						exec_external(t_command *cmd, t_msh *shell);
+int						handle_single_builtin(t_command *cmd, t_msh *msh);
+void					exec_loop(t_msh *msh, t_command *cmd, t_exec_ctx *ctx);
 
 /*     exec_utils.c      */
 char					*strjoin_three_and_free(char *s1, char *s2, char *s3);
@@ -184,7 +188,6 @@ void					free_array(char **arr);
 char					*get_path_name(t_command *cmd, t_env *env);
 char					*join_key_value(char *key, char *value);
 char					**env_to_array(t_env *env_list);
-
 
 /*      builtins         */
 int						ft_echo(t_command *cmd);
