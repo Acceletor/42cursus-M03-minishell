@@ -25,6 +25,7 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <sys/stat.h>
 
 // define constants
 typedef enum e_token_type

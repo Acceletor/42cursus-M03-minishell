@@ -109,10 +109,19 @@ int	exec_external(t_command *cmd, t_msh *shell)
 {
 	char	*path;
 	char	**envp;
+	struct stat	st;
 
 	if (!cmd->argv || !cmd->argv[0])
 		exit(127);
 	path = resolve_cmd_path(cmd, shell);
+	if (stat(path, &st) == 0 && S_ISDIR(st.st_mode))
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(path, 2);
+		ft_putendl_fd(": is a directory", 2);
+		free(path);
+		exit(126);
+	}
 	envp = env_to_array(shell->dict_env);
 	if (!envp)
 		return (free(path), 1);
