@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 22:55:00 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/10 23:11:26 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:30:54 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	handle_single_builtin(t_command *cmd, t_msh *msh)
 		return (0);
 	stdin_backup = dup(STDIN_FILENO);
 	stdout_backup = dup(STDOUT_FILENO);
-	handle_redirections(cmd->redirects);
+	handle_redirections(msh);
 	msh->exit_status = execute_builtins(cmd, msh);
 	dup2(stdin_backup, STDIN_FILENO);
 	dup2(stdout_backup, STDOUT_FILENO);

@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:20:48 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/10 23:04:59 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:29:50 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int						check_redirect_syntax(t_token *tokens);
 // redirections.c
 int						handle_single_redirect(t_redirect *redir,
 							t_redirect *last_heredoc);
-void					handle_redirections(t_redirect *redir);
+void					handle_redirections(t_msh *msh);
 int						handle_heredoc(const char *delimiter);
 int						heredoc_prepare(t_command *cmd);
 
