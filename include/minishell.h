@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:20:48 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/09 23:01:26 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/10 21:53:41 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,13 @@ typedef struct s_exec_ctx
 }						t_exec_ctx;
 
 // function prototypes
+
+// main.c
+void	print_welcome_message(void);
+int	check_input_and_exit(char *input);
+void	free_msh(t_msh *msh);
+
+
 
 // env_util.c
 t_env					*create_env_node(const char *key, const char *value);
@@ -196,7 +203,7 @@ int						ft_pwd(t_command *cmd);
 int						ft_export(t_command *cmd, t_env **env_list);
 int						ft_unset(t_command *cmd, t_env **env_list);
 int						ft_env(t_command *cmd, t_env *env_list);
-int						ft_exit(t_command *cmd);
+int						ft_exit(t_msh *msh);
 
 // ft_export_util.c
 void					print_export_list(t_env *env_list);

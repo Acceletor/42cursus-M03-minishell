@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/10 00:00:52 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/10 21:52:32 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ int	check_input_and_exit(char *input)
 		return (1);
 	}
 	return (0);
+}
+
+void	free_msh(t_msh *msh)
+{
+	free(msh->input);
+	free_env_list(&msh->dict_env);
+	free_command_list(msh->cmds);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -58,3 +65,4 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 // print_command_list(msh.cmds);
+
