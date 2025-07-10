@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:20:48 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/10 21:53:41 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/10 22:41:47 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ typedef struct s_exec_ctx
 // function prototypes
 
 // main.c
-void	print_welcome_message(void);
-int	check_input_and_exit(char *input);
-void	free_msh(t_msh *msh);
+void					print_welcome_message(void);
+int						check_input_and_exit(char *input);
+void					free_msh(t_msh *msh);
 
 
 
@@ -215,7 +215,6 @@ void					add_env_node(t_env **head, const char *key,
 t_env					*init_env(char **envp);
 void					free_env_list(t_env **head);
 void					print_env_list(t_env *head);
-int						exec_program_name(t_command *cmd, t_msh *msh);
 
 /*      env_util2         */
 char					*get_env_value(t_env *env, char *key);
