@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 22:55:00 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/10 22:11:04 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:11:26 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ int	exec_external(t_command *cmd, t_msh *shell)
 	struct stat	st;
 
 	if (!cmd->argv || !cmd->argv[0])
-	{
-		free_msh(shell);
-		exit(127);
-	}
+		free_msh(shell, 127);
 	path = resolve_cmd_path(cmd, shell);
 	if (stat(path, &st) == 0)
 	{
@@ -30,8 +27,7 @@ int	exec_external(t_command *cmd, t_msh *shell)
 		{
 			ft_printf("minishell: %s: is a directory\n", path);
 			free(path);
-			free_msh(shell);
-			exit(126);
+			free_msh(shell, 126);
 		}
 	}
 	envp = env_to_array(shell->dict_env);
@@ -41,7 +37,7 @@ int	exec_external(t_command *cmd, t_msh *shell)
 	perror("execve");
 	free(path);
 	free_array(envp);
-	free_msh(shell);
+	free_msh(shell, 126);
 	exit(126);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 12:54:33 by eeravci           #+#    #+#             */
-/*   Updated: 2025/07/10 22:41:42 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:05:39 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,14 @@ void	child_process(t_command *cmd, t_msh *msh, t_exec_ctx *ctx)
 	}
 	handle_redirections(cmd->redirects);
 	if (!cmd->argv || !cmd->argv[0])
-	{
-		free_msh(msh);
-		exit (0);
-	}
+		free_msh(msh, 0);
 	if (is_builtin(cmd->argv[0]))
 	{
 		exit_code = execute_builtins(cmd, msh);
-		free_msh(msh);
-		exit(exit_code);
+		free_msh(msh, exit_code);
 	}
 	exec_external(cmd, msh);
-	free_msh(msh);
-	exit(1);
+	free_msh(msh, 1);
 }
 
 void	parent_pipe_cleanup(t_exec_ctx *ctx)

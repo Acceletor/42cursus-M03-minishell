@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/10 21:52:32 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:04:35 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ int	check_input_and_exit(char *input)
 	return (0);
 }
 
-void	free_msh(t_msh *msh)
+void	free_msh(t_msh *msh, int exit_code)
 {
 	free(msh->input);
 	free_env_list(&msh->dict_env);
 	free_command_list(msh->cmds);
+	exit(exit_code);
 }
 
 int	main(int argc, char **argv, char **envp)

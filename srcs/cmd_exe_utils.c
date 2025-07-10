@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:00:36 by eeravci           #+#    #+#             */
-/*   Updated: 2025/07/10 21:56:03 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:10:11 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,13 @@ char	*resolve_cmd_path(t_command *cmd, t_msh *shell)
 		{
 			ft_printf("minishell: %s: No such file or directory\n",
 				cmd->argv[0]);
-			free_msh(shell);
-			exit(127);
+			free_msh(shell, 127);
 		}
 		if (access(cmd->argv[0], X_OK) != 0)
 		{
 			ft_putstr_fd("minishell: ", 2);
 			perror(cmd->argv[0]);
-			free_msh(shell);
-			exit(126);
+			free_msh(shell, 126);
 		}
 		return (ft_strdup(cmd->argv[0]));
 	}
@@ -103,8 +101,7 @@ char	*resolve_cmd_path(t_command *cmd, t_msh *shell)
 	if (!path)
 	{
 		ft_printf("minishell: command not found: %s\n", cmd->argv[0]);
-		free_msh(shell);
-		exit(127);
+		free_msh(shell, 127);
 	}
 	return (path);
 }

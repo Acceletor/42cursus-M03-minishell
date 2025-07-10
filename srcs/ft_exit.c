@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 16:17:41 by eeravci           #+#    #+#             */
-/*   Updated: 2025/07/10 21:58:34 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:09:20 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,13 @@ int	ft_exit(t_msh *msh)
 
 	ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (msh->cmds->argc == 0)
-	{
-		free_msh(msh);
-		exit(0);
-	}
+		free_msh(msh, 0);
 	else if (!msh->cmds->argv[1] && !is_numeric(msh->cmds->argv[1]))
 	{
 		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 		ft_putstr_fd(msh->cmds->argv[1], STDERR_FILENO);
 		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
-		free_msh(msh);
-		exit(2);
+		free_msh(msh, 2);
 	}
 	else if (msh->cmds->argc > 1)
 	{
@@ -55,6 +51,6 @@ int	ft_exit(t_msh *msh)
 		return (1);
 	}
 	exit_code = ft_atoi(msh->cmds->argv[1]);
-	free_msh(msh);
-	exit((unsigned char)exit_code);
+	free_msh(msh, (unsigned char)exit_code);
+	return (0);
 }
