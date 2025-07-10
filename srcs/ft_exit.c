@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 16:17:41 by eeravci           #+#    #+#             */
-/*   Updated: 2025/07/10 23:09:20 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:45:48 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static int	is_numeric(const char *str)
 	}
 	return (1);
 }
-
 
 int	ft_exit(t_msh *msh)
 {

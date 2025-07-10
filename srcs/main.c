@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/10 23:04:35 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:46:09 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,3 @@ int	main(int argc, char **argv, char **envp)
 	free_env_list(&msh.dict_env);
 	return (0);
 }
-// print_command_list(msh.cmds);
-

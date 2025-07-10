@@ -6,7 +6,7 @@
 /*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 13:01:17 by eeravci           #+#    #+#             */
-/*   Updated: 2025/07/10 22:41:52 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:45:40 by ksuebtha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,3 @@ bool	env_exists(t_env *env_list, const char *key)
 	}
 	return (false);
 }
-
