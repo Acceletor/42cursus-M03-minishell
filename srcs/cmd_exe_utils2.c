@@ -54,7 +54,7 @@ int	handle_single_builtin(t_command *cmd, t_msh *msh)
 		return (0);
 	stdin_backup = dup(STDIN_FILENO);
 	stdout_backup = dup(STDOUT_FILENO);
-	handle_redirections(msh);
+	handle_redirections(cmd, msh);
 	msh->exit_status = execute_builtins(cmd, msh);
 	dup2(stdin_backup, STDIN_FILENO);
 	dup2(stdout_backup, STDOUT_FILENO);

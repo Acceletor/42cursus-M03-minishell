@@ -162,7 +162,7 @@ int						check_redirect_syntax(t_token *tokens);
 // redirections.c
 int						handle_single_redirect(t_redirect *redir,
 							t_redirect *last_heredoc);
-void					handle_redirections(t_msh *msh);
+void					handle_redirections(t_command *cmd, t_msh *msh);
 int						handle_heredoc(const char *delimiter);
 int						heredoc_prepare(t_command *cmd);
 

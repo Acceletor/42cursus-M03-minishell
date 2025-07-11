@@ -38,13 +38,13 @@ int	handle_single_redirect(t_redirect *redir, t_redirect *last_heredoc)
 	return (0);
 }
 
-void	handle_redirections(t_msh *msh)
+void	handle_redirections(t_command *cmd ,t_msh *msh)
 {
 	t_redirect	*tmp;
 	t_redirect	*last_heredoc;
 	t_redirect	*redir;
 
-	redir = msh->cmds->redirects;
+	redir = cmd->redirects;
 	last_heredoc = NULL;
 	tmp = redir;
 	while (tmp)

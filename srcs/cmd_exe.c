@@ -27,7 +27,7 @@ void	child_process(t_command *cmd, t_msh *msh, t_exec_ctx *ctx)
 		dup2(ctx->next_pipe[1], STDOUT_FILENO);
 		close(ctx->next_pipe[1]);
 	}
-	handle_redirections(msh);
+	handle_redirections(cmd, msh);
 	if (!cmd->argv || !cmd->argv[0])
 		free_msh(msh, 0);
 	if (is_builtin(cmd->argv[0]))
