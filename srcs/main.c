@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 17:33:42 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/10 23:46:09 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/12 19:02:20 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, char **argv, char **envp)
 		exit(1);
 	ft_bzero(&msh, sizeof(t_msh));
 	msh.dict_env = init_env(envp);
-	// setup_signals();
+	setup_signals();
 	print_welcome_message();
 	while (true)
 	{

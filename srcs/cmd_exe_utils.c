@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_exe_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:00:36 by eeravci           #+#    #+#             */
-/*   Updated: 2025/07/10 23:10:11 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/12 19:14:30 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	execute_builtins(t_command *cmd, t_msh *shell)
 	else if (ft_strcmp(cmd->argv[0], "env") == 0)
 		return (ft_env(cmd, shell->dict_env));
 	else if (ft_strcmp(cmd->argv[0], "exit") == 0)
-		return (ft_exit(shell));
+		return (ft_exit(cmd));
 	return (1);
 }
 

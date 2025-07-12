@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuebtha <ksuebtha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:48:01 by eeravci           #+#    #+#             */
-/*   Updated: 2025/07/10 23:32:49 by ksuebtha         ###   ########.fr       */
+/*   Updated: 2025/07/12 19:09:09 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	handle_single_redirect(t_redirect *redir, t_redirect *last_heredoc)
 	return (0);
 }
 
-void	handle_redirections(t_command *cmd ,t_msh *msh)
+void	handle_redirections(t_command *cmd, t_msh *msh)
 {
 	t_redirect	*tmp;
 	t_redirect	*last_heredoc;
