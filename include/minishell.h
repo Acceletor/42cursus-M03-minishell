@@ -6,7 +6,7 @@
 /*   By: eeravci <eeravci@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 22:20:48 by ksuebtha          #+#    #+#             */
-/*   Updated: 2025/07/12 19:14:42 by eeravci          ###   ########.fr       */
+/*   Updated: 2025/07/12 22:18:01 by eeravci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ int						ft_pwd(t_command *cmd);
 int						ft_export(t_command *cmd, t_env **env_list);
 int						ft_unset(t_command *cmd, t_env **env_list);
 int						ft_env(t_command *cmd, t_env *env_list);
-int						ft_exit(t_command *cmd);
+int						ft_exit(t_msh *msh);
 
 // ft_export_util.c
 void					print_export_list(t_env *env_list);
